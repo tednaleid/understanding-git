@@ -1,17 +1,15 @@
 !SLIDE 
 # Understanding Git #
-<div class="smallercentered">
-or: how I learned to stop worrying and love the reflog
-</div>
 
-### by <a href="http://naleid.com">Ted Naleid</a> ###
+<p class="note">by <a href="http://naleid.com">Ted Naleid</a></p>
 
-<div class="smallestcentered shovedown">
-Presentation: <a href="http://tednaleid.github.com/showoff-git-core-concepts">tednaleid.github.com/showoff-git-core-concepts</a> 
-</div>
+<p class="note">
+Presentation: <a href="http://tednaleid.github.com/understanding-git-presentation">tednaleid.github.com/understanding-git-presentation</a> 
+</p>
+
 
 !SLIDE 
-# tl;dr #
+## tl;dr 
 rewriting history is a lie
 
 git commits are immutable and cannot be &#8220;rewritten&#8221;
@@ -105,7 +103,6 @@ git is a DAG (directed acyclic graph)
                 A---B---C---D-----------K---L---M 
                              \         /
                               H---I---J
-                                           
 </pre>
 
 
@@ -837,7 +834,6 @@ OSX only, if you're on another platform, try <a href="http://www.atlassian.com/s
 !SLIDE center
 # Enhanced Shell Prompt #
 
-![enhanced prompt](img/enhanced-prompt.png)
 
 <div class="smallercentered">
 decorated with branch &amp; SHA
