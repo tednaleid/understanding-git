@@ -1,7 +1,7 @@
 {
   "name": "shower",
   "description": "Shower HTML presentation engine",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": {
     "name": "Vadim Makeev",
     "url": "http://pepelsbey.com/"
@@ -34,6 +34,7 @@
     "grunt": "^0.4.4",
     "grunt-bump": "0.0.13",
     "load-grunt-tasks": "^0.4.0",
-    "grunt-shower-markdown": "^0.2.0"
+    "grunt-shower-markdown": "^0.2.0",
+    "grunt-contrib-watch": "^0.6.1"
   }
 }

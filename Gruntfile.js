@@ -1,17 +1,24 @@
 module.exports = function(grunt) {
+    grunt.initConfig({
+        shower: {
+            index: {
+                title: 'Understanding Git',
+                src: 'src/index.md',
+                styles: 'node_modules/shower-ribbon/styles/screen.css',
+                scripts: [
+                    'node_modules/shower-core/shower.min.js'
+                ]
+            }
+        },
+        watch: {
+            shower: {
+                files: 'src/*',
+                tasks: 'shower'
+            }
+        }
+    });
 
-	require('load-grunt-tasks')(grunt);
-
-	grunt.initConfig({
-		bump: {
-			options: {
-				files: ['package.json', 'bower.json'],
-				commitFiles: ['package.json', 'bower.json'],
-				pushTo: 'origin'
-			}
-		}
-	});
-
-	grunt.registerTask('default', ['bump']);
-
+		grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-shower-markdown');
+    grunt.registerTask('default', ['watch']);
 };
