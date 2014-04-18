@@ -1,0 +1,39 @@
+{
+  "name": "shower",
+  "description": "Shower HTML presentation engine",
+  "version": "1.0.4",
+  "author": {
+    "name": "Vadim Makeev",
+    "url": "http://pepelsbey.com/"
+  },
+  "homepage": "http://shwr.me/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shower/shower.git"
+  },
+  "bugs": {
+    "url": "http://github.com/shower/shower/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/shower/shower/wiki/MIT-License"
+    }
+  ],
+  "keywords": [
+    "shower",
+    "presentation",
+    "template"
+  ],
+  "dependencies": {
+    "shower-bright": "^1.0.5",
+    "shower-core": "^1.0.2",
+    "shower-ribbon": "^1.0.5"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-bump": "0.0.13",
+    "load-grunt-tasks": "^0.4.0",
+    "grunt-shower-markdown": "^0.2.0"
+  }
+}
