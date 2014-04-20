@@ -3,8 +3,8 @@
 // Layout
 $width:1024px;  // Slide width, permanent in most cases
 $height:640px;  // Slide height, 640px for 16:10, 768px for 4:3
-$top:105px;     // Top padding above slide content
-$sides:120px;   // Left and right paddings around slide content
+$top:50px;     // Top padding above slide content
+$sides:30px;   // Left and right paddings around slide content
 $break:1324px;  // Window width for small thumbnails to appear
 $ratio:'16x10'; // Available options: '16x10' or '4x3'
 
@@ -12,6 +12,16 @@ $ratio:'16x10'; // Available options: '16x10' or '4x3'
 $blue:#4B86C2;
 $grey:#2A2B2D;
 $yellow:#FAFAA2;
+$git-orange: #f14e32;
+//$git-blue: #04b1d8;
+//$git-blue: #00caca;
+$git-blue: #00c0c0;
+//$git-grey: #f0efe7;
+$git-grey: #f0eee1;
+$terminal-background:#343334;
+//$terminal-text: rgb(138, 235, 138);
+//$terminal-text: #a5fd9c;
+$terminal-text: #00caca;
 
 // #999 1px
 $dot:'data:image/gif;base64,R0lGODdhAQABAPAAAJmZmQAAACH/C1hNUCBEYXRhWE1QAj94ACwAAAAAAQABAAACAkQBADs=';
