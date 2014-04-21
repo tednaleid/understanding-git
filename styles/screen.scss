@@ -11,7 +11,7 @@ body {
 
 a {
 	color:$git-blue;
-	@include underline($git-blue, 0.09);
+	//@include underline($git-blue, 0.09);
 	text-decoration:none;
 }
 
@@ -47,37 +47,6 @@ h3 {
 	}
 }
 
-// Badge
-// -------------------------------
-.badge {
-	position:absolute;
-	top:0;
-	right:0;
-	display:none;
-	overflow:hidden;
-	visibility:hidden;
-	width:11em;
-	height:11em;
-	line-height:2.5;
-	font-size:15px;
-}
-.badge a {
-	position:absolute;
-	bottom:50%;
-	right:-50%;
-	left:-50%;
-	visibility:visible;
-	background:$git-blue;
-	box-shadow:0 0 1em rgba(#000, 0.3);
-	color:#FFF;
-	text-decoration:none;
-	text-align:center;
-	transform-origin:50% 100%;
-	transform:rotate(45deg) translateY(-1em);
-	&:hover {
-		background:lighten($git-blue, 3%);
-	}
-}
 
 // Slide
 // -------------------------------
@@ -126,6 +95,7 @@ h3 {
 		color: $git-orange;
 		font:bold 70px/1 'PT Sans Narrow', sans-serif;
 	}
+
 	// Text
 	p {
 		margin:0 0 50px;
@@ -220,88 +190,14 @@ h3 {
 				content:'';
 			}
 		}
-		mark {
-			padding:3px 8px;
-			border-radius:8px;
-			background:#F7FCA0;
-			color:#000;
-			font-style:normal;
-			&.important {
-				background:#C00;
-				color:#FFF;
-				font-weight:normal;
-			}
-			&.comment {
-				padding:0;
-				background:none;
-				color:#999;
-			}
+	}
+
+	&.myth {
+		h1 {
+			color: $git-blue;
 		}
 	}
-	// Table
-	table {
-		margin:0 0 50px;
-		width:100%;
-		border-collapse:collapse;
-		border-spacing:0;
-		th, td {
-			background:url($dot) 0 100% repeat-x;
-		}
-		th {
-			text-align:left;
-			font-weight:bold;
-		}
-		&.striped {
-			tr:nth-child(even) {
-				background:#EEE;
-			}
-		}
-	}
-	// Cover Shout
-	&.cover,
-	&.shout {
-		z-index:1;
-		&:after {
-			visibility:hidden;
-		}
-	}
-	// Cover
-	&.cover {
-		background:#000;
-		@mixin cover {
-			img, svg, video,
-			object, canvas, iframe {
-				@content;
-			}
-		}
-		@include cover {
-			position:absolute;
-			top:0;
-			left:0;
-			z-index:-1;
-		}
-		&.w {
-			@include cover {
-				top:50%;
-				width:100%;
-				transform:translateY(-50%);
-			}
-		}
-		&.h {
-			@include cover {
-				left:50%;
-				height:100%;
-				transform:translateX(-50%);
-			}
-		}
-		&.w.h {
-			@include cover {
-				top:0;
-				left:0;
-				transform:none;
-			}
-		}
-	}
+
 	// Shout
 	&.shout {
 		h1 {
@@ -310,11 +206,11 @@ h3 {
 			left:0;
 			width:100%;
 			text-align:center;
-			line-height:1;
+			line-height:.9;
 			font-size:150px;
 			transform:translateY(-50%);
 			a {
-				@include underline($git-blue, 0.11);
+				//@include underline($git-blue, 0.11);
 			}
 		}
 		h2 {
@@ -327,7 +223,7 @@ h3 {
 			transform:translateY(-50%);
 			font:bold 35px/1 'Open Sans Light', sans-serif;
 			a {
-				@include underline($git-blue, 0.11);
+				//@include underline($git-blue, 0.11);
 			}
 		}
 	}

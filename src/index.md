@@ -8,49 +8,39 @@ by <a href="http://naleid.com">Ted Naleid</a>
 
 ## by <a href="http://naleid.com">Ted Naleid</a>
 
-!SLIDE shout
-# rewriting history <p>is a lie</p>
+!SLIDE shout myth
+# git is dangerous 
+## myth #1
 
 !SLIDE shout
-# git is the safest VCS I know 
+# git is the _safest_ version control 
+## reality
 
+!SLIDE shout myth
+# git lets you<br/>rewrite history
+## myth #2
 
-!SLIDE shout 
-# but its syntax is _terrible_ 
+!SLIDE shout
+# rewriting <br/>history is a _lie_
+## reality
 
 !SLIDE shout
 # git mislabels things
 
-## ex: git branches aren't branches
+## ex: git branches aren't what you think they are
+
+!SLIDE shout
+# throw away your preconceptions from other version control systems
+
+!SLIDE shout
+
+# git is a<br/>filesystem-based object database 
+
+!SLIDE
+
 
 !SLIDE 
-git has hundreds of commands, but commonly used ones require extra parameters
-
-!SLIDE 
-git uses dangerous-sounding terms:
-
-<div class="centered smaller">
-<p>&#8220;rewrite history&#8221;</p>
-
-<p>rebase</p> 
-
-<p>reset --hard HEAD</p>
-
-<p>squash</p>
-
-<p>fast-forward</p>
-
-<p>reflog</p>
-</div>
-
-!SLIDE 
-throw away your preconceptions from other version control systems
-
-!SLIDE 
-# Git Core Concepts 
-
-!SLIDE 
-git is a DAG (directed acyclic graph)
+commits form a DAG (directed acyclic graph)
 
                   E---F---G 
                  /
@@ -70,20 +60,26 @@ DAG nodes each represent a commit
                                        
 
 
+!SLIDE
+
+The ability to see this DAG, understand your current position in it, and reason about how to make the changes you want to it is _the most important thing to understand_
+
+
 !SLIDE 
-A commit is identified by a unique SHA
+# Every Commit has a Unique ID 
 
 ```
 % cat .git/refs/heads/master                  
-f643986c985998abd74076afe0247c81e0399512
+3739fd313542160733035fc44a386229718989dc
 
-% git cat-file -p f643986 
-tree 392739b5a3de25773c163ae91191d3360811d302
-parent 94381141d087e9354b34ae76d2ab064a39b1cc69
-author Ted Naleid &lt;contact@naleid.com&gt; 1343694118 -0500
-committer Ted Naleid &lt;contact@naleid.com&gt; 1343698088 -0500
+% git cat-file -p 3739fd313542160733035fc44a386229718989dc         
+tree e688b2a15544115cd85f5d6dcf00168b40847720
+parent ff1eaa718bb1edbda05e0aee9b074c9635add720
+parent f6ef529a26e885832dfbd1f2b156c31eb52b1f6c
+author Ted Naleid <contact@naleid.com> 1397505233 -0500
+committer Ted Naleid <contact@naleid.com> 1397505233 -0500
 
-adding _amazing_ ascii art
+merging my-feature-branch into master
 ```
 
 !SLIDE 
@@ -409,9 +405,16 @@ a pre-commit staging area
 </div>
 
 
-!SLIDE shout
-# Git Command Tips 
+!SLIDE shout myth
+# git syntax is terrible
+## myth #3
 
+!SLIDE shout 
+#  git syntax is<br/>_really terrible_
+## reality
+
+!SLIDE shout
+# Learn<br/>"the good parts" and make them your own
 
 !SLIDE 
 # reset --soft 

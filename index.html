@@ -8,7 +8,7 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1397971932000">
+		<link rel="stylesheet" href="styles/screen.css?1398043190000">
 	
 </head>
 <body class="list">
@@ -25,63 +25,52 @@
 
 	</div></section>
 	
-	<section class="slide shout" ><div>
-		<h1>rewriting history <p>is a lie</p></h1>
+	<section class="slide shout myth" ><div>
+		<h1>git is dangerous</h1>
+<h2>myth #1</h2>
 
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>git is the safest VCS I know</h1>
+		<h1>git is the <em>safest</em> version control</h1>
+<h2>reality</h2>
+
+	</div></section>
+	
+	<section class="slide shout myth" ><div>
+		<h1>git lets you<br/>rewrite history</h1>
+<h2>myth #2</h2>
 
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>but its syntax is <em>terrible</em></h1>
+		<h1>rewriting <br/>history is a <em>lie</em></h1>
+<h2>reality</h2>
 
 	</div></section>
 	
 	<section class="slide shout" ><div>
 		<h1>git mislabels things</h1>
-<h2>ex: git branches aren&#39;t branches</h2>
+<h2>ex: git branches aren&#39;t what you think they are</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>throw away your preconceptions from other version control systems</h1>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>git is a<br/>filesystem-based object database</h1>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>git has hundreds of commands, but commonly used ones require extra parameters</p>
-
+		
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>git uses dangerous-sounding terms:</p>
-<div class="centered smaller">
-<p>&#8220;rewrite history&#8221;</p>
-
-<p>rebase</p> 
-
-<p>reset --hard HEAD</p>
-
-<p>squash</p>
-
-<p>fast-forward</p>
-
-<p>reflog</p>
-</div>
-
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<p>throw away your preconceptions from other version control systems</p>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>Git Core Concepts</h1>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<p>git is a DAG (directed acyclic graph)</p>
+		<p>commits form a DAG (directed acyclic graph)</p>
 <pre><code>              E---F---G </code>
 <code>             /</code>
 <code>        A---B---C---D-----------K---L---M </code>
@@ -99,17 +88,18 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>A commit is identified by a unique SHA</p>
+		<h1>Every Commit has a Unique ID</h1>
 <pre><code>% cat .git/refs/heads/master                  </code>
-<code>f643986c985998abd74076afe0247c81e0399512</code>
+<code>3739fd313542160733035fc44a386229718989dc</code>
 <code>&shy;</code>
-<code>% git cat-file -p f643986 </code>
-<code>tree 392739b5a3de25773c163ae91191d3360811d302</code>
-<code>parent 94381141d087e9354b34ae76d2ab064a39b1cc69</code>
-<code>author Ted Naleid &amp;lt;contact@naleid.com&amp;gt; 1343694118 -0500</code>
-<code>committer Ted Naleid &amp;lt;contact@naleid.com&amp;gt; 1343698088 -0500</code>
+<code>% git cat-file -p 3739fd313542160733035fc44a386229718989dc         </code>
+<code>tree e688b2a15544115cd85f5d6dcf00168b40847720</code>
+<code>parent ff1eaa718bb1edbda05e0aee9b074c9635add720</code>
+<code>parent f6ef529a26e885832dfbd1f2b156c31eb52b1f6c</code>
+<code>author Ted Naleid &lt;contact@naleid.com&gt; 1397505233 -0500</code>
+<code>committer Ted Naleid &lt;contact@naleid.com&gt; 1397505233 -0500</code>
 <code>&shy;</code>
-<code>adding _amazing_ ascii art</code></pre>
+<code>merging my-feature-branch into master</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -370,8 +360,20 @@ something like every 1000 commits
 
 	</div></section>
 	
+	<section class="slide shout myth" ><div>
+		<h1>git syntax is terrible</h1>
+<h2>myth #3</h2>
+
+	</div></section>
+	
 	<section class="slide shout" ><div>
-		<h1>Git Command Tips</h1>
+		<h1>git syntax is<br/><em>really terrible</em></h1>
+<h2>reality</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>Learn<br/>&quot;the good parts&quot; and make them your own</h1>
 
 	</div></section>
 	
