@@ -116,7 +116,7 @@ h3 {
 		color:$terminal-text;
 		tab-size:4;
 		line-height:1;
-		font-family: monospace, 'PT Mono', monospace;
+		font-family: 'Inconsolata', 'PT Mono', monospace;
 	}
 	sub, sup {
 		position: relative;
@@ -176,9 +176,11 @@ h3 {
 	// Code
 	pre {
 		margin:0 0 49px;
-		padding: 0 0 0 8px;
+		padding: 4px 4px 4px 8px;
 		counter-reset:code;
 		white-space:normal;
+		border-radius:4px;
+
 		code {
 			display:block;
 			padding:0;
@@ -197,6 +199,23 @@ h3 {
 			color: $git-blue;
 		}
 	}
+
+	&.quieter {
+		h1 {
+			font-size: 120px !important;
+		}
+	}
+
+	&.quietest {
+		h1 {
+			font-size: 70px !important;
+		}
+
+		h2 {
+			font-size: 30px !important;
+		}
+	}
+
 
 	// Shout
 	&.shout {

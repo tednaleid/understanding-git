@@ -1,12 +1,17 @@
 # Understanding Git 
 
-by <a href="http://naleid.com">Ted Naleid</a>
+by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
-!SLIDE shout scanlines
+!SLIDE shout
 
 # Understanding Git 
 
-## by <a href="http://naleid.com">Ted Naleid</a>
+## by <a href="https://twitter.com/tednaleid">@tednaleid</a>
+
+!SLIDE shout
+
+# confidently understand where you are
+
 
 !SLIDE shout myth
 # git is dangerous 
@@ -34,35 +39,40 @@ by <a href="http://naleid.com">Ted Naleid</a>
 
 !SLIDE shout
 
-# git is a<br/>filesystem-based object database 
+# What is git?
 
-!SLIDE
+!SLIDE quieter shout
 
+# a file-system datastore that holds immutable objects
+
+!SLIDE shout
+
+# WTF does that mean?
 
 !SLIDE 
-commits form a DAG (directed acyclic graph)
+# commit nodes form a DAG 
 
+```
                   E---F---G 
                  /
             A---B---C---D-----------K---L---M 
                          \         /
                           H---I---J
+```
 
+ ## DAG = "Directed Acyclic Graph"
 
 !SLIDE 
-DAG nodes each represent a commit
 
+# DAG nodes each represent a commit
+
+```
                   E---F---G 
                  /
             A---B---C---D-----------K---L---M 
                          \         /
                           H---I---J
-                                       
-
-
-!SLIDE
-
-The ability to see this DAG, understand your current position in it, and reason about how to make the changes you want to it is _the most important thing to understand_
+```
 
 
 !SLIDE 
@@ -82,15 +92,13 @@ committer Ted Naleid <contact@naleid.com> 1397505233 -0500
 merging my-feature-branch into master
 ```
 
-!SLIDE 
-commits are completely immutable and are _impossible_ to accidentally destroy with git commands
+!SLIDE quietest shout 
+# commits are completely immutable and are _impossible_ to accidentally destroy with git commands
 
-<div class="smallercentered">
-you can still <code>rm -rf yourrepo</code> and lose anything not yet pushed out
-</div>
+## though <code>rm -rf yourrepo</code> will lose anything not yet pushed out
 
-!SLIDE
-uncommitted work is easily destroyed, so commit early &amp; often
+!SLIDE quieter shout 
+# uncommitted work is easily destroyed, so commit early &amp; often
 
 !SLIDE 
 you cannot modify commits, only add new ones

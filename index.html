@@ -8,20 +8,25 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1398043190000">
+		<link rel="stylesheet" href="styles/screen.css?1398138979000">
 	
 </head>
 <body class="list">
 	<header class="caption">
 		<h1 id="understanding-git">Understanding Git</h1>
-<p>by <a href="http://naleid.com">Ted Naleid</a></p>
+<p>by <a href="https://twitter.com/tednaleid">@tednaleid</a></p>
 
 	</header>
 
 	
-	<section class="slide shout scanlines" ><div>
+	<section class="slide shout" ><div>
 		<h1>Understanding Git</h1>
-<h2>by <a href="http://naleid.com">Ted Naleid</a></h2>
+<h2>by <a href="https://twitter.com/tednaleid">@tednaleid</a></h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>confidently understand where you are</h1>
 
 	</div></section>
 	
@@ -61,30 +66,37 @@
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>git is a<br/>filesystem-based object database</h1>
+		<h1>What is git?</h1>
+
+	</div></section>
+	
+	<section class="slide quieter shout" ><div>
+		<h1>a file-system datastore that holds immutable objects</h1>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>WTF does that mean?</h1>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		
+		<h1>commit nodes form a DAG</h1>
+<pre><code>                  E---F---G </code>
+<code>                 /</code>
+<code>            A---B---C---D-----------K---L---M </code>
+<code>                         \         /</code>
+<code>                          H---I---J</code></pre><h2>DAG = &quot;Directed Acyclic Graph&quot;</h2>
+
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>commits form a DAG (directed acyclic graph)</p>
-<pre><code>              E---F---G </code>
-<code>             /</code>
-<code>        A---B---C---D-----------K---L---M </code>
-<code>                     \         /</code>
-<code>                      H---I---J</code></pre>
-	</div></section>
-	
-	<section class="slide " ><div>
-		<p>DAG nodes each represent a commit</p>
-<pre><code>              E---F---G </code>
-<code>             /</code>
-<code>        A---B---C---D-----------K---L---M </code>
-<code>                     \         /</code>
-<code>                      H---I---J</code></pre>
+		<h1>DAG nodes each represent a commit</h1>
+<pre><code>                  E---F---G </code>
+<code>                 /</code>
+<code>            A---B---C---D-----------K---L---M </code>
+<code>                         \         /</code>
+<code>                          H---I---J</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -102,17 +114,14 @@
 <code>merging my-feature-branch into master</code></pre>
 	</div></section>
 	
-	<section class="slide " ><div>
-		<p>commits are completely immutable and are <em>impossible</em> to accidentally destroy with git commands</p>
-<div class="smallercentered">
-you can still <code>rm -rf yourrepo</code> and lose anything not yet pushed out
-</div>
-
+	<section class="slide quietest shout" ><div>
+		<h1>commits are completely immutable and are <em>impossible</em> to accidentally destroy with git commands</h1>
+<h2>though <code>rm -rf yourrepo</code> will lose anything not yet pushed out</h2>
 
 	</div></section>
 	
-	<section class="slide " ><div>
-		<p>uncommitted work is easily destroyed, so commit early &amp; often</p>
+	<section class="slide quieter shout" ><div>
+		<h1>uncommitted work is easily destroyed, so commit early &amp; often</h1>
 
 	</div></section>
 	
