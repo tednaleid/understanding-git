@@ -10,8 +10,9 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
 !SLIDE shout
 
-# confidently understand where you are
+# understand where you are
 
+## before you try to go somewhere else
 
 !SLIDE shout myth
 # git is dangerous 
@@ -60,7 +61,7 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
                           H---I---J
 ```
 
- ## DAG = "Directed Acyclic Graph"
+ ## DAG = &#8220;Directed Acyclic Graph&#8221;
 
 !SLIDE 
 
@@ -100,40 +101,40 @@ merging my-feature-branch into master
 !SLIDE quieter shout 
 # uncommitted work is easily destroyed, so commit early &amp; often
 
-!SLIDE 
-you cannot modify commits, only add new ones
+!SLIDE quieter shout
 
-!SLIDE 
-garbage collection is the only truly destructive git action 
+# you can't modify commits<br/><br/>only add new ones
 
-!SLIDE 
-garbage collection only destroys commits with _nothing_ pointing at them
+!SLIDE quieter shout
+
+# garbage collection is the only truly destructive git action 
+
+!SLIDE quietest shout
+# garbage collection only destroys commits with _nothing_ pointing at them
 
 !SLIDE 
 # what points at commits? 
 
-child commits
+# other commits
 
-tags 
+# tags 
 
-branches 
+# branches 
 
-the reflog
+# the reflog
 
 !SLIDE 
-# child commits 
+# commits 
 
-point at 1..N parent commits 
+point at 0..N parent commits 
 
 ```
-                        E---F---G 
-                       /
-                  A---B---C---D 
+                                E---F---G 
+                               /
+                          A---B---C---D 
 ```
 
-<div class="smallercentered">
 most commonly 1 or 2 parent commits
-</div>
 
 !SLIDE 
 
@@ -199,12 +200,9 @@ they're just pointers, and are easy to move if you don't like where they are at
 ```
 
 
-<div class="smallercentered">
 commit <code>C</code> still exists and was not harmed by moving the pointer
-</div>
-<div class="smallestcentered">
+
 we'll talk more about <code>reset</code> in a bit
-</div>
 
 !SLIDE 
 # remote branches 
@@ -218,9 +216,7 @@ we'll talk more about <code>reset</code> in a bit
                     master    
 ```
 
-<div class="smallercentered">
 for most commands, there's nothing remote about them...they're just moved on a <code>fetch</code> or <code>pull</code>
-</div>
 
 !SLIDE 
 # branches 
@@ -254,8 +250,8 @@ branch text file contains is the SHA of the commit it's pointing at
 tree 4fd7894316b4659ef3f53426166697858d51a291
 parent e324971ecf1e0f626d4ba8b0adfc22465091c100
 parent d33700dde6d38b051ba240ee97d685afdaf07515
-author Ted Naleid &lt;contact@naleid.com&gt; 1328567163 -0800
-committer Ted Naleid &lt;contact@naleid.com&gt; 1328567163 -0800
+author Ted Naleid <contact@naleid.com> 1328567163 -0800
+committer Ted Naleid <contact@naleid.com> 1328567163 -0800
 
 merge commit of two branches
 ```
@@ -278,9 +274,7 @@ a branch's commits are implied by the ancestry of the commit the branch points a
                             master
 ```
 
-<div class="smallercentered">
 <code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code>
-</div>
 
 !SLIDE
 # HEAD 
@@ -292,9 +286,7 @@ a branch's commits are implied by the ancestry of the commit the branch points a
 ref: refs/heads/master
 ```
 
-<div class="smallercentered">
 most of the time it points to a branch, but can point directly to a SHA when &#8220;detached&#8221;
-</div>
 
 
 !SLIDE 
@@ -318,10 +310,7 @@ d72efc4 HEAD@{1}: commit: adding bar.txt
 6435f38 HEAD@{2}: commit (initial): adding foo.txt
 ```
 
-
-<div class="smallercentered">
 by default it contains up to two weeks of history
-</div>
 
 !SLIDE 
 # the reflog 
@@ -351,9 +340,7 @@ if the only thing pointing to a commit is the reflog, it's &#8220;dangling&#8221
                 master
 ```
 
-<div class="smallercentered">
 <code>C..F</code> are now dangling
-</div>
 
 !SLIDE 
 # dangling commit 
@@ -369,9 +356,7 @@ but they will be safe for ~2 weeks because of the reflog
 
 ```
 
-<div class="smallercentered">
 <code>HEAD@{1}</code> will become <code>HEAD@{2}</code>..<code>HEAD@{N}</code> as refs are added to the reflog
-</div>
 
 !SLIDE 
 # garbage collection 
@@ -381,9 +366,7 @@ once a dangling commit leaves the reflog, it is &#8220;loose&#8221; and is at ri
 # garbage collection 
 git does a <code>gc</code> when the number of &#8220;loose&#8221; objects hits a threshold
 
-<div class="smallestcentered">
 something like every 1000 commits 
-</div>
 
 !SLIDE 
 # garbage collection 
@@ -394,7 +377,7 @@ to prevent garbage collecting a commit, just point something at it
 ```
 
 !SLIDE 
-you should have courage to experiment 
+# you should have courage to experiment 
 
 you have _weeks_ to retrieve prior commits if something doesn't work
 
@@ -404,14 +387,9 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 a pre-commit staging area
 
-<div class="smallercentered">
-    <code>git add .</code> puts all changes in the index ready for commit
-</div>
+<code>git add .</code> puts all changes in the index ready for commit
 
-<div class="smallestcentered">
-    some users bypass the index and commit directly with <code>git commit -a -m "msg"</code>
-</div>
-
+some users bypass the index and commit directly with <code>git commit -a -m "msg"</code>
 
 !SLIDE shout myth
 # git syntax is terrible
@@ -422,7 +400,7 @@ a pre-commit staging area
 ## reality
 
 !SLIDE shout
-# Learn<br/>"the good parts" and make them your own
+# Learn<br/>&#8220;the good parts&#8221; and make them your own
 
 !SLIDE 
 # reset --soft 
@@ -442,7 +420,7 @@ git reset --soft SHA_OF_C
 ```
 
 ```
-                    working dir &amp; index still look like
+                    working dir & index still look like
                                     ↓
                     A---B---C---D---E
                             ↑
@@ -455,7 +433,7 @@ git reset --soft SHA_OF_C
 
 useful for squashing the last few messy commits into one pristine commit
 ```
-                    working dir &amp; index still look like
+                    working dir & index still look like
                                     ↓
                     A---B---C---D---E
                             ↑
@@ -477,31 +455,29 @@ git commit -m "perfect code on the 'first' try"
 # reset (default)
 
 ```
-git reset [--mixed] &lt;SHA&gt;
+git reset [--mixed] <SHA>
 ```
+
+<br/>
 
 1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
 2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
 3. working directory - unchanged
 
-<div class="smallercentered">
 <code>git reset HEAD</code> will unstage everything in the index
-</div>
 
 !SLIDE 
 # reset --hard
 ```
-git reset --hard &lt;SHA&gt;
+git reset --hard <SHA>
 ```
 
+<br/>
 1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
 2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
 3. clean the working copy, make it look like <code>&lt;SHA&gt;</code> 
 
-<p/>
-<div class="smallercentered">
 <span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
-</div>
 
 !SLIDE 
 # reset --hard HEAD 
@@ -509,13 +485,9 @@ git reset --hard &lt;SHA&gt;
 git reset --hard HEAD
 ```
 
-<div class="smallercentered">
 just means clean out the working directory and any staged information, don't move the branch pointer
-</div>
 
-<div class="smallestcentered">
 for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
-</div>
 
 !SLIDE
 # commit --amend
@@ -543,10 +515,11 @@ git commit --amend -m "New commit message"
 
 
 !SLIDE
+
 # recovering commits
-<div class="smallercentered">
+
 Oops, I really wanted <code>C</code>!
-</div>
+
 ```
                          master+HEAD
                               ↓
@@ -650,9 +623,7 @@ git merge --squash feature
                                    master+HEAD
 ```
 
-<div class="smallestcentered">
 squashing is used to clean up history, when the thinking behind <code>E..F</code> is unimportant
-</div>
 
 
 !SLIDE 
@@ -756,7 +727,7 @@ does not move any local references
 ```
 
 !SLIDE 
-the "right" way to pull down changes from the server
+the &#8220;right&#8221; way to pull down changes from the server
 
 1. <code>stash</code> any uncommitted changes (if any)
 2. <code>fetch</code> the latest refs and commits from origin
@@ -764,10 +735,7 @@ the "right" way to pull down changes from the server
 4. else, just fast-forward your head to match origin's
 5. un-<code>stash</code> any previously stashed changes
 
-<p>
-<div class="smallercentered">
 <code>fetch</code> + <code>rebase</code> avoids unnecessary commits
-</div>
 
 !SLIDE
 Luckily, <code>git smart-pull</code> (part of the git-smart ruby gem) does all this for us

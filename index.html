@@ -8,7 +8,7 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1398138979000">
+		<link rel="stylesheet" href="styles/screen.css?1398205719000">
 	
 </head>
 <body class="list">
@@ -26,7 +26,8 @@
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>confidently understand where you are</h1>
+		<h1>understand where you are</h1>
+<h2>before you try to go somewhere else</h2>
 
 	</div></section>
 	
@@ -86,7 +87,7 @@
 <code>                 /</code>
 <code>            A---B---C---D-----------K---L---M </code>
 <code>                         \         /</code>
-<code>                          H---I---J</code></pre><h2>DAG = &quot;Directed Acyclic Graph&quot;</h2>
+<code>                          H---I---J</code></pre><h2>DAG = &#8220;Directed Acyclic Graph&#8221;</h2>
 
 	</div></section>
 	
@@ -125,39 +126,36 @@
 
 	</div></section>
 	
-	<section class="slide " ><div>
-		<p>you cannot modify commits, only add new ones</p>
+	<section class="slide quieter shout" ><div>
+		<h1>you can&#39;t modify commits<br/><br/>only add new ones</h1>
 
 	</div></section>
 	
-	<section class="slide " ><div>
-		<p>garbage collection is the only truly destructive git action </p>
+	<section class="slide quieter shout" ><div>
+		<h1>garbage collection is the only truly destructive git action</h1>
 
 	</div></section>
 	
-	<section class="slide " ><div>
-		<p>garbage collection only destroys commits with <em>nothing</em> pointing at them</p>
+	<section class="slide quietest shout" ><div>
+		<h1>garbage collection only destroys commits with <em>nothing</em> pointing at them</h1>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>what points at commits?</h1>
-<p>child commits</p>
-<p>tags </p>
-<p>branches </p>
-<p>the reflog</p>
+<h1>other commits</h1>
+<h1>tags</h1>
+<h1>branches</h1>
+<h1>the reflog</h1>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>child commits</h1>
-<p>point at 1..N parent commits </p>
-<pre><code>                        E---F---G </code>
-<code>                       /</code>
-<code>                  A---B---C---D</code></pre><div class="smallercentered">
-most commonly 1 or 2 parent commits
-</div>
-
+		<h1>commits</h1>
+<p>point at 0..N parent commits </p>
+<pre><code>                                E---F---G </code>
+<code>                               /</code>
+<code>                          A---B---C---D</code></pre><p>most commonly 1 or 2 parent commits</p>
 
 	</div></section>
 	
@@ -188,13 +186,8 @@ most commonly 1 or 2 parent commits
 <code>                          ↑</code>
 <code>                        master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>                  A---B---C</code>
 <code>                      ↑</code>
-<code>                    master</code></pre><div class="smallercentered">
-commit <code>C</code> still exists and was not harmed by moving the pointer
-</div>
-<div class="smallestcentered">
-we&#39;ll talk more about <code>reset</code> in a bit
-</div>
-
+<code>                    master</code></pre><p>commit <code>C</code> still exists and was not harmed by moving the pointer</p>
+<p>we&#39;ll talk more about <code>reset</code> in a bit</p>
 
 	</div></section>
 	
@@ -205,10 +198,7 @@ we&#39;ll talk more about <code>reset</code> in a bit
 <code>                              ↓</code>
 <code>              A---B---C---D---E</code>
 <code>                      ↑       </code>
-<code>                    master</code></pre><div class="smallercentered">
-for most commands, there&#39;s nothing remote about them...they&#39;re just moved on a <code>fetch</code> or <code>pull</code>
-</div>
-
+<code>                    master</code></pre><p>for most commands, there&#39;s nothing remote about them...they&#39;re just moved on a <code>fetch</code> or <code>pull</code></p>
 
 	</div></section>
 	
@@ -231,8 +221,8 @@ for most commands, there&#39;s nothing remote about them...they&#39;re just move
 <code>tree 4fd7894316b4659ef3f53426166697858d51a291</code>
 <code>parent e324971ecf1e0f626d4ba8b0adfc22465091c100</code>
 <code>parent d33700dde6d38b051ba240ee97d685afdaf07515</code>
-<code>author Ted Naleid &amp;lt;contact@naleid.com&amp;gt; 1328567163 -0800</code>
-<code>committer Ted Naleid &amp;lt;contact@naleid.com&amp;gt; 1328567163 -0800</code>
+<code>author Ted Naleid &lt;contact@naleid.com&gt; 1328567163 -0800</code>
+<code>committer Ted Naleid &lt;contact@naleid.com&gt; 1328567163 -0800</code>
 <code>&shy;</code>
 <code>merge commit of two branches</code></pre>
 	</div></section>
@@ -252,10 +242,7 @@ for most commands, there&#39;s nothing remote about them...they&#39;re just move
 <code>                       /</code>
 <code>                  A---B---C---D </code>
 <code>                              ↑ </code>
-<code>                            master</code></pre><div class="smallercentered">
-<code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code>
-</div>
-
+<code>                            master</code></pre><p><code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code></p>
 
 	</div></section>
 	
@@ -263,11 +250,7 @@ for most commands, there&#39;s nothing remote about them...they&#39;re just move
 		<h1>HEAD</h1>
 <p><code>HEAD</code> is the active commit that will be the parent of the next commit</p>
 <pre><code>% cat .git/HEAD</code>
-<code>ref: refs/heads/master</code></pre><div class="smallercentered">
-most of the time it points to a branch, but can point directly to a SHA when &#8220;detached&#8221;
-</div>
-
-
+<code>ref: refs/heads/master</code></pre><p>most of the time it points to a branch, but can point directly to a SHA when &#8220;detached&#8221;</p>
 
 	</div></section>
 	
@@ -279,10 +262,7 @@ most of the time it points to a branch, but can point directly to a SHA when &#8
 <code>6435f38 HEAD@{1}: commit (initial): adding foo.txt</code></pre><pre><code>% git commit -m &quot;adding baz.txt&quot;</code></pre><pre><code>% git reflog                                       </code>
 <code>b5416cb HEAD@{0}: commit: adding baz.txt</code>
 <code>d72efc4 HEAD@{1}: commit: adding bar.txt</code>
-<code>6435f38 HEAD@{2}: commit (initial): adding foo.txt</code></pre><div class="smallercentered">
-by default it contains up to two weeks of history
-</div>
-
+<code>6435f38 HEAD@{2}: commit (initial): adding foo.txt</code></pre><p>by default it contains up to two weeks of history</p>
 
 	</div></section>
 	
@@ -305,10 +285,7 @@ by default it contains up to two weeks of history
 <code>                                  ↑</code>
 <code>                                master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>              A---B---C---D---E---F</code>
 <code>                  ↑</code>
-<code>                master</code></pre><div class="smallercentered">
-<code>C..F</code> are now dangling
-</div>
-
+<code>                master</code></pre><p><code>C..F</code> are now dangling</p>
 
 	</div></section>
 	
@@ -319,10 +296,7 @@ by default it contains up to two weeks of history
 <code>                                        ↓</code>
 <code>                    A---B---C---D---E---F</code>
 <code>                        ↑</code>
-<code>                     master (also HEAD@{0})</code></pre><div class="smallercentered">
-<code>HEAD@{1}</code> will become <code>HEAD@{2}</code>..<code>HEAD@{N}</code> as refs are added to the reflog
-</div>
-
+<code>                     master (also HEAD@{0})</code></pre><p><code>HEAD@{1}</code> will become <code>HEAD@{2}</code>..<code>HEAD@{N}</code> as refs are added to the reflog</p>
 
 	</div></section>
 	
@@ -335,10 +309,7 @@ by default it contains up to two weeks of history
 	<section class="slide " ><div>
 		<h1>garbage collection</h1>
 <p>git does a <code>gc</code> when the number of &#8220;loose&#8221; objects hits a threshold</p>
-<div class="smallestcentered">
-something like every 1000 commits 
-</div>
-
+<p>something like every 1000 commits </p>
 
 	</div></section>
 	
@@ -349,7 +320,7 @@ something like every 1000 commits
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>you should have courage to experiment </p>
+		<h1>you should have courage to experiment</h1>
 <p>you have <em>weeks</em> to retrieve prior commits if something doesn&#39;t work</p>
 
 	</div></section>
@@ -357,15 +328,8 @@ something like every 1000 commits
 	<section class="slide " ><div>
 		<h1>the index</h1>
 <p>a pre-commit staging area</p>
-<div class="smallercentered">
-    <code>git add .</code> puts all changes in the index ready for commit
-</div>
-
-<div class="smallestcentered">
-    some users bypass the index and commit directly with <code>git commit -a -m &quot;msg&quot;</code>
-</div>
-
-
+<p><code>git add .</code> puts all changes in the index ready for commit</p>
+<p>some users bypass the index and commit directly with <code>git commit -a -m &quot;msg&quot;</code></p>
 
 	</div></section>
 	
@@ -382,7 +346,7 @@ something like every 1000 commits
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>Learn<br/>&quot;the good parts&quot; and make them your own</h1>
+		<h1>Learn<br/>&#8220;the good parts&#8221; and make them your own</h1>
 
 	</div></section>
 	
@@ -395,7 +359,7 @@ something like every 1000 commits
 </ol>
 <pre><code>                    A---B---C---D---E</code>
 <code>                                    ↑</code>
-<code>                                  master</code></pre><pre><code>git reset --soft SHA_OF_C</code></pre><pre><code>                    working dir &amp;amp; index still look like</code>
+<code>                                  master</code></pre><pre><code>git reset --soft SHA_OF_C</code></pre><pre><code>                    working dir &amp; index still look like</code>
 <code>                                    ↓</code>
 <code>                    A---B---C---D---E</code>
 <code>                            ↑</code>
@@ -405,7 +369,7 @@ something like every 1000 commits
 	<section class="slide " ><div>
 		<h1>reset --soft</h1>
 <p>useful for squashing the last few messy commits into one pristine commit</p>
-<pre><code>                    working dir &amp;amp; index still look like</code>
+<pre><code>                    working dir &amp; index still look like</code>
 <code>                                    ↓</code>
 <code>                    A---B---C---D---E</code>
 <code>                            ↑</code>
@@ -416,43 +380,32 @@ something like every 1000 commits
 	
 	<section class="slide " ><div>
 		<h1>reset (default)</h1>
-<pre><code>git reset [--mixed] &amp;lt;SHA&amp;gt;</code></pre><ol>
+<pre><code>git reset [--mixed] &lt;SHA&gt;</code></pre><p><br/></p>
+<ol>
 <li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code> </li>
 <li>clean the index, make it look like <code>&lt;SHA&gt;</code> </li>
 <li>working directory - unchanged</li>
 </ol>
-<div class="smallercentered">
-<code>git reset HEAD</code> will unstage everything in the index
-</div>
-
+<p><code>git reset HEAD</code> will unstage everything in the index</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>reset --hard</h1>
-<pre><code>git reset --hard &amp;lt;SHA&amp;gt;</code></pre><ol>
+<pre><code>git reset --hard &lt;SHA&gt;</code></pre><p><br/></p>
+<ol>
 <li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code> </li>
 <li>clean the index, make it look like <code>&lt;SHA&gt;</code> </li>
 <li>clean the working copy, make it look like <code>&lt;SHA&gt;</code> </li>
 </ol>
-<p><p/></p>
-<div class="smallercentered">
-<span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
-</div>
-
+<p><span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>reset --hard HEAD</h1>
-<pre><code>git reset --hard HEAD</code></pre><div class="smallercentered">
-just means clean out the working directory and any staged information, don&#39;t move the branch pointer
-</div>
-
-<div class="smallestcentered">
-for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
-</div>
-
+<pre><code>git reset --hard HEAD</code></pre><p>just means clean out the working directory and any staged information, don&#39;t move the branch pointer</p>
+<p>for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a></p>
 
 	</div></section>
 	
@@ -473,9 +426,7 @@ for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/
 	
 	<section class="slide " ><div>
 		<h1>recovering commits</h1>
-<p><div class="smallercentered">
-Oops, I really wanted <code>C</code>!
-</div></p>
+<p>Oops, I really wanted <code>C</code>!</p>
 <pre><code>                         master+HEAD</code>
 <code>                              ↓</code>
 <code>                              C&#39;</code>
@@ -554,11 +505,7 @@ Oops, I really wanted <code>C</code>!
 <code>                                     /</code>
 <code>                        A---B---C---D---G&#39; </code>
 <code>                                        ↑ </code>
-<code>                                   master+HEAD</code></pre><div class="smallestcentered">
-squashing is used to clean up history, when the thinking behind <code>E..F</code> is unimportant
-</div>
-
-
+<code>                                   master+HEAD</code></pre><p>squashing is used to clean up history, when the thinking behind <code>E..F</code> is unimportant</p>
 
 	</div></section>
 	
@@ -629,7 +576,7 @@ squashing is used to clean up history, when the thinking behind <code>E..F</code
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>the &quot;right&quot; way to pull down changes from the server</p>
+		<p>the &#8220;right&#8221; way to pull down changes from the server</p>
 <ol>
 <li><code>stash</code> any uncommitted changes (if any)</li>
 <li><code>fetch</code> the latest refs and commits from origin</li>
@@ -637,11 +584,7 @@ squashing is used to clean up history, when the thinking behind <code>E..F</code
 <li>else, just fast-forward your head to match origin&#39;s</li>
 <li>un-<code>stash</code> any previously stashed changes</li>
 </ol>
-<p><p></p>
-<div class="smallercentered">
-<code>fetch</code> + <code>rebase</code> avoids unnecessary commits
-</div>
-
+<p><code>fetch</code> + <code>rebase</code> avoids unnecessary commits</p>
 
 	</div></section>
 	

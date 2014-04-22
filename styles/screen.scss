@@ -6,7 +6,7 @@
 
 body {
 	counter-reset:slide;
-	font:25px/2 'PT Sans', sans-serif;
+	font:30px/2 'PT Sans', sans-serif;
 }
 
 a {
@@ -27,6 +27,11 @@ pre, code {
 h3 {
 	font:bold 35px/1 'Open Sans Light', sans-serif;
 }
+
+span.danger {
+	color: $git-orange;
+}
+
 
 // Caption
 // -------------------------------
@@ -91,14 +96,14 @@ h3 {
 .slide {
 	// Header
 	h1 {
-		margin:0 0 27px;
+		margin:0 0 35px;
 		color: $git-orange;
 		font:bold 70px/1 'PT Sans Narrow', sans-serif;
 	}
 
 	// Text
 	p {
-		margin:0 0 50px;
+		margin:0 0 20px;
 	}
 	p.note {
 		color:#999;
@@ -147,7 +152,8 @@ h3 {
 	}
 	// Lists
 	ol, ul {
-		margin:0 0 50px;
+		margin:0 0 20px;
+		line-height: 1.5em;
 		counter-reset:list;
 		li {
 			text-indent:-2em;
@@ -157,10 +163,6 @@ h3 {
 				color:#BBB;
 				text-align:right;
 			}
-		}
-		ol,
-		ul {
-			margin:0 0 0 2em;
 		}
 	}
 	ul > li:before {
@@ -175,7 +177,7 @@ h3 {
 	}
 	// Code
 	pre {
-		margin:0 0 49px;
+		margin:0 0 10px;
 		padding: 4px 4px 4px 8px;
 		counter-reset:code;
 		white-space:normal;
@@ -246,36 +248,7 @@ h3 {
 			}
 		}
 	}
-	// Place
-	.place {
-		position:absolute;
-		top:50%;
-		left:50%;
-		transform:translate(-50%, -50%);
-		&.t.l, &.t.r, &.b.r, &.b.l {
-			transform:none;
-		}
-		&.t, &.b {
-			transform:translate(-50%, 0);
-		}
-		&.l, &.r {
-			transform:translate(0, -50%);
-		}
-		&.t, &.t.l, &.t.r {
-			top:0;
-		}
-		&.r {
-			right:0;
-			left:auto;
-		}
-		&.b, &.b.r, &.b.l {
-			top:auto;
-			bottom:0;
-		}
-		&.l {
-			left:0;
-		}
-	}
+
 	// Notes
 	footer {
 		position:absolute;
