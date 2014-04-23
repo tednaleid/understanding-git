@@ -10,36 +10,6 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
 !SLIDE shout
 
-# understand where you are
-
-## before you try to go somewhere else
-
-!SLIDE shout myth
-# git is dangerous 
-## myth #1
-
-!SLIDE shout
-# git is the _safest_ version control 
-## reality
-
-!SLIDE shout myth
-# git lets you<br/>rewrite history
-## myth #2
-
-!SLIDE shout
-# rewriting <br/>history is a _lie_
-## reality
-
-!SLIDE shout
-# git mislabels things
-
-## ex: git branches aren't what you think they are
-
-!SLIDE shout
-# throw away your preconceptions from other version control systems
-
-!SLIDE shout
-
 # What is git?
 
 !SLIDE quieter shout
@@ -50,7 +20,9 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
 # WTF does that mean?
 
-!SLIDE 
+!SLIDE  
+
+<br/>
 # commit nodes form a DAG 
 
 ```
@@ -61,10 +33,11 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
                           H---I---J
 ```
 
- ## DAG = &#8220;Directed Acyclic Graph&#8221;
+## DAG = &#8220;Directed Acyclic Graph&#8221;
 
 !SLIDE 
 
+<br/>
 # DAG nodes each represent a commit
 
 ```
@@ -124,14 +97,15 @@ merging my-feature-branch into master
 # the reflog
 
 !SLIDE 
+<br/>
 # commits 
 
 point at 0..N parent commits 
 
 ```
-                                E---F---G 
-                               /
-                          A---B---C---D 
+                              E---F---G 
+                             /
+                        A---B---C---D 
 ```
 
 most commonly 1 or 2 parent commits
@@ -142,9 +116,9 @@ most commonly 1 or 2 parent commits
 fixed pointers
 
 ```
-                  A---B---C 
-                          ↑
-                     release_1.0
+                      A---B---C 
+                              ↑
+                         release_1.0
 ```
 
 ```
@@ -152,9 +126,9 @@ fixed pointers
 ```
 
 ```
-                  A---B---C---D 
-                          ↑
-                     release_1.0
+                      A---B---C---D 
+                              ↑
+                         release_1.0
 ```
 
 !SLIDE 
@@ -163,9 +137,9 @@ fixed pointers
 floating pointers that move on commit
 
 ```
-                  A---B
-                      ↑
-                    master
+                          A---B
+                              ↑
+                            master
 ```
 
 ```
@@ -173,9 +147,9 @@ floating pointers that move on commit
 ```
 
 ```
-                  A---B---C
-                          ↑
-                        master
+                          A---B---C
+                                  ↑
+                                master
 ```
 
 
@@ -184,9 +158,9 @@ floating pointers that move on commit
 
 they're just pointers, and are easy to move if you don't like where they are at
 ```
-                  A---B---C
-                          ↑
-                        master
+                        A---B---C
+                                ↑
+                              master
 ```
 
 ```
@@ -194,9 +168,9 @@ they're just pointers, and are easy to move if you don't like where they are at
 ```
 
 ```
-                  A---B---C
-                      ↑
-                    master
+                        A---B---C
+                            ↑
+                          master
 ```
 
 
@@ -209,11 +183,11 @@ we'll talk more about <code>reset</code> in a bit
 &#8220;remote&#8221; branches are just pointers in your local repo
 
 ```
-                        origin/master
-                              ↓
-              A---B---C---D---E
-                      ↑       
-                    master    
+                              origin/master
+                                    ↓
+                    A---B---C---D---E
+                            ↑       
+                          master    
 ```
 
 for most commands, there's nothing remote about them...they're just moved on a <code>fetch</code> or <code>pull</code>
@@ -257,6 +231,7 @@ merge commit of two branches
 ```
 
 !SLIDE 
+<br/>
 # branches 
 commits don't &#8220;belong to&#8221; branches, there's nothing in the commit metadata about branches
 
@@ -265,13 +240,13 @@ commits don't &#8220;belong to&#8221; branches, there's nothing in the commit me
 a branch's commits are implied by the ancestry of the commit the branch points at
 
 ```
-                             feature
-                                ↓
-                        E---F---G 
-                       /
-                  A---B---C---D 
-                              ↑ 
-                            master
+                                 feature
+                                    ↓
+                            E---F---G 
+                           /
+                      A---B---C---D 
+                                  ↑ 
+                                master
 ```
 
 <code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code>
@@ -313,21 +288,23 @@ d72efc4 HEAD@{1}: commit: adding bar.txt
 by default it contains up to two weeks of history
 
 !SLIDE 
+<br/>
 # the reflog 
 unique to a repository instance
 
 a garbage collected commit can still exist in a clone
 
 !SLIDE 
+<br/>
 # dangling commit 
 if the only thing pointing to a commit is the reflog, it's &#8220;dangling&#8221;
 
 !SLIDE 
 # dangling commit 
 ```
-              A---B---C---D---E---F
-                                  ↑
-                                master
+                    A---B---C---D---E---F
+                                        ↑
+                                      master
 ```
 
 ```
@@ -335,9 +312,9 @@ if the only thing pointing to a commit is the reflog, it's &#8220;dangling&#8221
 ```
 
 ```
-              A---B---C---D---E---F
-                  ↑
-                master
+                    A---B---C---D---E---F
+                        ↑
+                      master
 ```
 
 <code>C..F</code> are now dangling
@@ -359,27 +336,25 @@ but they will be safe for ~2 weeks because of the reflog
 <code>HEAD@{1}</code> will become <code>HEAD@{2}</code>..<code>HEAD@{N}</code> as refs are added to the reflog
 
 !SLIDE 
+<br/>
 # garbage collection 
 once a dangling commit leaves the reflog, it is &#8220;loose&#8221; and is at risk of garbage collection
 
 !SLIDE 
+<br/>
 # garbage collection 
 git does a <code>gc</code> when the number of &#8220;loose&#8221; objects hits a threshold
 
 something like every 1000 commits 
 
 !SLIDE 
+<br/>
 # garbage collection 
 to prevent garbage collecting a commit, just point something at it
 
 ```
 % git tag mytag SHA_OF_DANGLING_COMMIT
 ```
-
-!SLIDE 
-# you should have courage to experiment 
-
-you have _weeks_ to retrieve prior commits if something doesn't work
 
 !SLIDE
 
@@ -391,13 +366,42 @@ a pre-commit staging area
 
 some users bypass the index and commit directly with <code>git commit -a -m "msg"</code>
 
-!SLIDE shout myth
-# git syntax is terrible
-## myth #3
+!SLIDE 
+<br/>
 
-!SLIDE shout 
-#  git syntax is<br/>_really terrible_
-## reality
+# you should have courage to experiment 
+
+you have _weeks_ to retrieve prior commits if something doesn't work
+
+!SLIDE shout
+
+# understand where you are
+
+## before you try to go somewhere else
+
+
+!SLIDE quieter shout
+
+# You need one repo visualization tool that you grok
+
+
+!SLIDE 
+
+# Here's Mine:
+
+```
+~/.gitconfig:
+
+[alias]
+  # one line per commit, ascii graph log showing history from current commit
+  l = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+  # like above but shows history of all branches
+  la = !git l --all
+
+  # show just commits currently decorated by branch/tag pointers, really useful for high level picture
+  ld = !git l --all --simplify-by-decoration
+```
 
 !SLIDE shout
 # Learn<br/>&#8220;the good parts&#8221; and make them your own
@@ -500,13 +504,11 @@ redo the last commit
 ```
 
 ```
-&lt;... change some files ... &gt;
+<... change some files ... > 
 git commit --amend -m "New commit message"
 ```
 ```
-                         master+HEAD
-                              ↓
-                              C'
+                              C' ← master+HEAD
                              /
                         A---B---C
                                 ↑    
@@ -521,22 +523,16 @@ git commit --amend -m "New commit message"
 Oops, I really wanted <code>C</code>!
 
 ```
-                         master+HEAD
-                              ↓
-                              C'
+                              C' ← master+HEAD
                              /
-                        A---B---C
-                                ↑    
-                            (dangling)
+                        A---B---C ← (dangling)
 ```
 ```
 git reflog  # find SHA_OF_C 
 git reset --hard SHA_OF_C
 ```
 ```
-                         (dangling)
-                              ↓
-                              C'
+                              C' ← (dangling)
                              /
                         A---B---C
                                 ↑    
@@ -546,6 +542,7 @@ git reset --hard SHA_OF_C
 
 
 !SLIDE 
+<br/>
 # rebasing 
 
 reapplies a series of commits to a new parent commit
@@ -556,13 +553,11 @@ then moves the current branch pointer
 # rebasing 
 
 ```
-                                feature+HEAD
-                                      ↓
-                              E---F---G 
-                             /
-                        A---B---C---D 
-                                    ↑ 
-                                  master
+                        E---F---G  ← feature+HEAD
+                       /
+                  A---B---C---D 
+                              ↑ 
+                            master
 ```
 
 ```
@@ -570,28 +565,32 @@ then moves the current branch pointer
 ```
 
 ```
-                        (dangling but still in reflog)
-                                      ↓
-                              E---F---G
-                             /
-                        A---B---C---D---E'--F'--G'
-                                    ↑           ↑ 
-                                  master  feature+HEAD
+                  (dangling but still in reflog)
+                                ↓
+                        E---F---G
+                       /
+                  A---B---C---D---E'--F'--G'
+                              ↑           ↑ 
+                            master  feature+HEAD
 ```
 
 !SLIDE 
-# rebasing 
-a private activity, should never be done with commits that have been pushed
+<br/>
+# rebasing - a private activity
+should never be done with commits that have been pushed
 
 !SLIDE
-# rebasing 
-rebasing public commits is bad because it creates redundant commits with new SHAs 
+<br/>
+# rebasing - a private activity
+public rebasing is bad as others could have the same commits with different SHAs
 
 !SLIDE
-# rebasing 
+<br/>
+# rebasing - a private activity
 if you want to clean things up, an alternative is to create another branch, rebase onto that and push it out
 
 !SLIDE 
+<br/>
 # squashing 
 
 compresses N commits into one commit that's appended to a destination branch
@@ -600,13 +599,11 @@ compresses N commits into one commit that's appended to a destination branch
 # squashing 
 
 ```
-                                           feature
-                                              ↓
-                                      E---F---G 
-                                     /
-                        A---B---C---D 
-                                    ↑ 
-                               master+HEAD
+                              E---F---G ← feature
+                             /
+                A---B---C---D 
+                            ↑ 
+                       master+HEAD
 ```
 
 ```
@@ -614,16 +611,14 @@ git merge --squash feature
 ```
 
 ```
-                                           feature
-                                              ↓
-                                      E---F---G 
-                                     /
-                        A---B---C---D---G' 
-                                        ↑ 
-                                   master+HEAD
+                              E---F---G ← feature
+                             /
+                A---B---C---D---G' 
+                                ↑ 
+                           master+HEAD
 ```
 
-squashing is used to clean up history, when the thinking behind <code>E..F</code> is unimportant
+cleans up history, when the thinking behind <code>E..F</code> is unimportant
 
 
 !SLIDE 
@@ -632,11 +627,11 @@ squashing is used to clean up history, when the thinking behind <code>E..F</code
 apply a subset of changes from another branch
 
 ```
-                              E---F---G 
-                             /
-                        A---B---C---D 
-                                    ↑ 
-                               master+HEAD
+                            E---F---G 
+                           /
+                      A---B---C---D 
+                                  ↑ 
+                             master+HEAD
 ```
 
 ```
@@ -644,15 +639,16 @@ git cherry-pick SHA_OF_F
 ```
 
 ```
-                              E---F---G 
-                             /
-                        A---B---C---D---F' 
-                                        ↑ 
-                                   master+HEAD
+                            E---F---G 
+                           /
+                      A---B---C---D---F' 
+                                      ↑ 
+                                 master+HEAD
 ```
 
 
 !SLIDE 
+<br/>
 # fetch 
 
 download new commits and update the remote branch pointer
@@ -666,12 +662,11 @@ does not move any local references
                      A---B---E---F   
 (origin)                         ↑ 
                               master (in remote repo)  
-
+```
+```
                    origin/master
-                         ↓
-(local)              A---B---C---D 
-                                 ↑ 
-                              master+HEAD
+(local)                  ↓
+                     A---B---C---D ← master+HEAD 
 ```
 
 ```
@@ -683,14 +678,13 @@ does not move any local references
                          origin/master
                                ↓
                            E---F
-                          /
-(local)              A---B---C---D 
-                                 ↑ 
-                              master+HEAD
+(local)                   /
+                     A---B---C---D ← master+HEAD
 ```
 
 
 !SLIDE 
+<br/>
 # pull 
 
 <code>pull</code> is <code>fetch</code> plus <code>merge</code>
@@ -702,13 +696,12 @@ does not move any local references
                      A---B---E---F   
 (origin)                         ↑ 
                               master (local ref in remote repo)  
-
+```
+```
 
                    origin/master
-                         ↓
-(local)              A---B---C---D 
-                                 ↑ 
-                              master+HEAD
+(local)                  ↓
+                     A---B---C---D ← master+HEAD
 ```
 
 ```
@@ -721,13 +714,11 @@ does not move any local references
                                ↓
                            E---F----
                           /         \
-(local)              A---B---C---D---G 
-                                     ↑ 
-                                  master+HEAD
+(local)              A---B---C---D---G ← master+HEAD
 ```
 
 !SLIDE 
-the &#8220;right&#8221; way to pull down changes from the server
+# the &#8220;right&#8221; way to pull down changes from the server
 
 1. <code>stash</code> any uncommitted changes (if any)
 2. <code>fetch</code> the latest refs and commits from origin
@@ -738,12 +729,48 @@ the &#8220;right&#8221; way to pull down changes from the server
 <code>fetch</code> + <code>rebase</code> avoids unnecessary commits
 
 !SLIDE
-Luckily, <code>git smart-pull</code> (part of the git-smart ruby gem) does all this for us
+
+# rebasing pull
+<br/>
+As of git 1.8.5, git has finally added a rebase switch to `pull`:
 
 ```
-gem install git-smart
+git pull --rebase
 ```
 
+This will do the `fetch` + `rebase` for you (you still stash on your own).
+
+!SLIDE shout myth
+# git is dangerous 
+## myth #1
+
+!SLIDE shout
+# git is the _safest_ version control 
+## reality
+
+!SLIDE shout myth
+# git lets you<br/>rewrite history
+## myth #2
+
+!SLIDE shout
+# rewriting <br/>history is a _lie_
+## reality
+
+!SLIDE shout myth
+# git syntax is terrible
+## myth #3
+
+!SLIDE shout 
+#  git syntax is<br/>_really terrible_
+## reality
+
+!SLIDE shout
+# git mislabels things
+
+## ex: git branches aren't what you think they are
+
+!SLIDE shout
+# throw away your preconceptions from other version control systems
 
 !SLIDE shout
 # Questions? 

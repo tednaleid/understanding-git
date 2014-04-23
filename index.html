@@ -8,7 +8,7 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1398205719000">
+		<link rel="stylesheet" href="styles/screen.css?1398219606000">
 	
 </head>
 <body class="list">
@@ -22,47 +22,6 @@
 	<section class="slide shout" ><div>
 		<h1>Understanding Git</h1>
 <h2>by <a href="https://twitter.com/tednaleid">@tednaleid</a></h2>
-
-	</div></section>
-	
-	<section class="slide shout" ><div>
-		<h1>understand where you are</h1>
-<h2>before you try to go somewhere else</h2>
-
-	</div></section>
-	
-	<section class="slide shout myth" ><div>
-		<h1>git is dangerous</h1>
-<h2>myth #1</h2>
-
-	</div></section>
-	
-	<section class="slide shout" ><div>
-		<h1>git is the <em>safest</em> version control</h1>
-<h2>reality</h2>
-
-	</div></section>
-	
-	<section class="slide shout myth" ><div>
-		<h1>git lets you<br/>rewrite history</h1>
-<h2>myth #2</h2>
-
-	</div></section>
-	
-	<section class="slide shout" ><div>
-		<h1>rewriting <br/>history is a <em>lie</em></h1>
-<h2>reality</h2>
-
-	</div></section>
-	
-	<section class="slide shout" ><div>
-		<h1>git mislabels things</h1>
-<h2>ex: git branches aren&#39;t what you think they are</h2>
-
-	</div></section>
-	
-	<section class="slide shout" ><div>
-		<h1>throw away your preconceptions from other version control systems</h1>
 
 	</div></section>
 	
@@ -82,7 +41,8 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>commit nodes form a DAG</h1>
+		<p><br/></p>
+<h1>commit nodes form a DAG</h1>
 <pre><code>                  E---F---G </code>
 <code>                 /</code>
 <code>            A---B---C---D-----------K---L---M </code>
@@ -92,7 +52,8 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>DAG nodes each represent a commit</h1>
+		<p><br/></p>
+<h1>DAG nodes each represent a commit</h1>
 <pre><code>                  E---F---G </code>
 <code>                 /</code>
 <code>            A---B---C---D-----------K---L---M </code>
@@ -151,42 +112,43 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>commits</h1>
+		<p><br/></p>
+<h1>commits</h1>
 <p>point at 0..N parent commits </p>
-<pre><code>                                E---F---G </code>
-<code>                               /</code>
-<code>                          A---B---C---D</code></pre><p>most commonly 1 or 2 parent commits</p>
+<pre><code>                              E---F---G </code>
+<code>                             /</code>
+<code>                        A---B---C---D</code></pre><p>most commonly 1 or 2 parent commits</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>tags</h1>
 <p>fixed pointers</p>
-<pre><code>                  A---B---C </code>
-<code>                          ↑</code>
-<code>                     release_1.0</code></pre><pre><code>    % git commit -m &quot;adding stuff to C&quot;</code></pre><pre><code>                  A---B---C---D </code>
-<code>                          ↑</code>
-<code>                     release_1.0</code></pre>
+<pre><code>                      A---B---C </code>
+<code>                              ↑</code>
+<code>                         release_1.0</code></pre><pre><code>    % git commit -m &quot;adding stuff to C&quot;</code></pre><pre><code>                      A---B---C---D </code>
+<code>                              ↑</code>
+<code>                         release_1.0</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>branches</h1>
 <p>floating pointers that move on commit</p>
-<pre><code>                  A---B</code>
-<code>                      ↑</code>
-<code>                    master</code></pre><pre><code>% git commit -m &quot;adding stuff to B&quot;</code></pre><pre><code>                  A---B---C</code>
-<code>                          ↑</code>
-<code>                        master</code></pre>
+<pre><code>                          A---B</code>
+<code>                              ↑</code>
+<code>                            master</code></pre><pre><code>% git commit -m &quot;adding stuff to B&quot;</code></pre><pre><code>                          A---B---C</code>
+<code>                                  ↑</code>
+<code>                                master</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>branches</h1>
 <p>they&#39;re just pointers, and are easy to move if you don&#39;t like where they are at</p>
-<pre><code>                  A---B---C</code>
-<code>                          ↑</code>
-<code>                        master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>                  A---B---C</code>
-<code>                      ↑</code>
-<code>                    master</code></pre><p>commit <code>C</code> still exists and was not harmed by moving the pointer</p>
+<pre><code>                        A---B---C</code>
+<code>                                ↑</code>
+<code>                              master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>                        A---B---C</code>
+<code>                            ↑</code>
+<code>                          master</code></pre><p>commit <code>C</code> still exists and was not harmed by moving the pointer</p>
 <p>we&#39;ll talk more about <code>reset</code> in a bit</p>
 
 	</div></section>
@@ -194,11 +156,11 @@
 	<section class="slide " ><div>
 		<h1>remote branches</h1>
 <p>&#8220;remote&#8221; branches are just pointers in your local repo</p>
-<pre><code>                        origin/master</code>
-<code>                              ↓</code>
-<code>              A---B---C---D---E</code>
-<code>                      ↑       </code>
-<code>                    master</code></pre><p>for most commands, there&#39;s nothing remote about them...they&#39;re just moved on a <code>fetch</code> or <code>pull</code></p>
+<pre><code>                              origin/master</code>
+<code>                                    ↓</code>
+<code>                    A---B---C---D---E</code>
+<code>                            ↑       </code>
+<code>                          master</code></pre><p>for most commands, there&#39;s nothing remote about them...they&#39;re just moved on a <code>fetch</code> or <code>pull</code></p>
 
 	</div></section>
 	
@@ -228,7 +190,8 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>branches</h1>
+		<p><br/></p>
+<h1>branches</h1>
 <p>commits don&#39;t &#8220;belong to&#8221; branches, there&#39;s nothing in the commit metadata about branches</p>
 
 	</div></section>
@@ -236,13 +199,13 @@
 	<section class="slide " ><div>
 		<h1>branches</h1>
 <p>a branch&#39;s commits are implied by the ancestry of the commit the branch points at</p>
-<pre><code>                             feature</code>
-<code>                                ↓</code>
-<code>                        E---F---G </code>
-<code>                       /</code>
-<code>                  A---B---C---D </code>
-<code>                              ↑ </code>
-<code>                            master</code></pre><p><code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code></p>
+<pre><code>                                 feature</code>
+<code>                                    ↓</code>
+<code>                            E---F---G </code>
+<code>                           /</code>
+<code>                      A---B---C---D </code>
+<code>                                  ↑ </code>
+<code>                                master</code></pre><p><code>master</code> is <code>A-B-C-D</code> and <code>feature</code> is <code>A-B-E-F-G</code></p>
 
 	</div></section>
 	
@@ -267,25 +230,27 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>the reflog</h1>
+		<p><br/></p>
+<h1>the reflog</h1>
 <p>unique to a repository instance</p>
 <p>a garbage collected commit can still exist in a clone</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>dangling commit</h1>
+		<p><br/></p>
+<h1>dangling commit</h1>
 <p>if the only thing pointing to a commit is the reflog, it&#39;s &#8220;dangling&#8221;</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>dangling commit</h1>
-<pre><code>              A---B---C---D---E---F</code>
-<code>                                  ↑</code>
-<code>                                master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>              A---B---C---D---E---F</code>
-<code>                  ↑</code>
-<code>                master</code></pre><p><code>C..F</code> are now dangling</p>
+<pre><code>                    A---B---C---D---E---F</code>
+<code>                                        ↑</code>
+<code>                                      master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>                    A---B---C---D---E---F</code>
+<code>                        ↑</code>
+<code>                      master</code></pre><p><code>C..F</code> are now dangling</p>
 
 	</div></section>
 	
@@ -301,28 +266,25 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>garbage collection</h1>
+		<p><br/></p>
+<h1>garbage collection</h1>
 <p>once a dangling commit leaves the reflog, it is &#8220;loose&#8221; and is at risk of garbage collection</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>garbage collection</h1>
+		<p><br/></p>
+<h1>garbage collection</h1>
 <p>git does a <code>gc</code> when the number of &#8220;loose&#8221; objects hits a threshold</p>
 <p>something like every 1000 commits </p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>garbage collection</h1>
+		<p><br/></p>
+<h1>garbage collection</h1>
 <p>to prevent garbage collecting a commit, just point something at it</p>
 <pre><code>% git tag mytag SHA_OF_DANGLING_COMMIT</code></pre>
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>you should have courage to experiment</h1>
-<p>you have <em>weeks</em> to retrieve prior commits if something doesn&#39;t work</p>
-
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -333,16 +295,37 @@
 
 	</div></section>
 	
-	<section class="slide shout myth" ><div>
-		<h1>git syntax is terrible</h1>
-<h2>myth #3</h2>
+	<section class="slide " ><div>
+		<p><br/></p>
+<h1>you should have courage to experiment</h1>
+<p>you have <em>weeks</em> to retrieve prior commits if something doesn&#39;t work</p>
 
 	</div></section>
 	
 	<section class="slide shout" ><div>
-		<h1>git syntax is<br/><em>really terrible</em></h1>
-<h2>reality</h2>
+		<h1>understand where you are</h1>
+<h2>before you try to go somewhere else</h2>
 
+	</div></section>
+	
+	<section class="slide quieter shout" ><div>
+		<h1>You need one repo visualization tool that you grok</h1>
+
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>Here&#39;s Mine:</h1>
+<pre><code>~/.gitconfig:</code>
+<code>&shy;</code>
+<code>[alias]</code>
+<code>  # one line per commit, ascii graph log showing history from current commit</code>
+<code>  l = log --graph --pretty=&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset&#39; --abbrev-commit --date=relative</code>
+<code>&shy;</code>
+<code>  # like above but shows history of all branches</code>
+<code>  la = !git l --all</code>
+<code>&shy;</code>
+<code>  # show just commits currently decorated by branch/tag pointers, really useful for high level picture</code>
+<code>  ld = !git l --all --simplify-by-decoration</code></pre>
 	</div></section>
 	
 	<section class="slide shout" ><div>
@@ -414,10 +397,8 @@
 <p>redo the last commit</p>
 <pre><code>                        A---B---C</code>
 <code>                                ↑    </code>
-<code>                            master+HEAD</code></pre><pre><code>&amp;lt;... change some files ... &amp;gt;</code>
-<code>git commit --amend -m &quot;New commit message&quot;</code></pre><pre><code>                         master+HEAD</code>
-<code>                              ↓</code>
-<code>                              C&#39;</code>
+<code>                            master+HEAD</code></pre><pre><code>&lt;... change some files ... &gt; </code>
+<code>git commit --amend -m &quot;New commit message&quot;</code></pre><pre><code>                              C&#39; ← master+HEAD</code>
 <code>                             /</code>
 <code>                        A---B---C</code>
 <code>                                ↑    </code>
@@ -427,16 +408,10 @@
 	<section class="slide " ><div>
 		<h1>recovering commits</h1>
 <p>Oops, I really wanted <code>C</code>!</p>
-<pre><code>                         master+HEAD</code>
-<code>                              ↓</code>
-<code>                              C&#39;</code>
+<pre><code>                              C&#39; ← master+HEAD</code>
 <code>                             /</code>
-<code>                        A---B---C</code>
-<code>                                ↑    </code>
-<code>                            (dangling)</code></pre><pre><code>git reflog  # find SHA_OF_C </code>
-<code>git reset --hard SHA_OF_C</code></pre><pre><code>                         (dangling)</code>
-<code>                              ↓</code>
-<code>                              C&#39;</code>
+<code>                        A---B---C ← (dangling)</code></pre><pre><code>git reflog  # find SHA_OF_C </code>
+<code>git reset --hard SHA_OF_C</code></pre><pre><code>                              C&#39; ← (dangling)</code>
 <code>                             /</code>
 <code>                        A---B---C</code>
 <code>                                ↑    </code>
@@ -444,7 +419,8 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>rebasing</h1>
+		<p><br/></p>
+<h1>rebasing</h1>
 <p>reapplies a series of commits to a new parent commit</p>
 <p>then moves the current branch pointer</p>
 
@@ -452,79 +428,78 @@
 	
 	<section class="slide " ><div>
 		<h1>rebasing</h1>
-<pre><code>                                feature+HEAD</code>
-<code>                                      ↓</code>
-<code>                              E---F---G </code>
-<code>                             /</code>
-<code>                        A---B---C---D </code>
-<code>                                    ↑ </code>
-<code>                                  master</code></pre><pre><code>   git rebase master</code></pre><pre><code>                        (dangling but still in reflog)</code>
-<code>                                      ↓</code>
-<code>                              E---F---G</code>
-<code>                             /</code>
-<code>                        A---B---C---D---E&#39;--F&#39;--G&#39;</code>
-<code>                                    ↑           ↑ </code>
-<code>                                  master  feature+HEAD</code></pre>
+<pre><code>                        E---F---G  ← feature+HEAD</code>
+<code>                       /</code>
+<code>                  A---B---C---D </code>
+<code>                              ↑ </code>
+<code>                            master</code></pre><pre><code>   git rebase master</code></pre><pre><code>                  (dangling but still in reflog)</code>
+<code>                                ↓</code>
+<code>                        E---F---G</code>
+<code>                       /</code>
+<code>                  A---B---C---D---E&#39;--F&#39;--G&#39;</code>
+<code>                              ↑           ↑ </code>
+<code>                            master  feature+HEAD</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>rebasing</h1>
-<p>a private activity, should never be done with commits that have been pushed</p>
+		<p><br/></p>
+<h1>rebasing - a private activity</h1>
+<p>should never be done with commits that have been pushed</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>rebasing</h1>
-<p>rebasing public commits is bad because it creates redundant commits with new SHAs </p>
+		<p><br/></p>
+<h1>rebasing - a private activity</h1>
+<p>public rebasing is bad as others could have the same commits with different SHAs</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>rebasing</h1>
+		<p><br/></p>
+<h1>rebasing - a private activity</h1>
 <p>if you want to clean things up, an alternative is to create another branch, rebase onto that and push it out</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>squashing</h1>
+		<p><br/></p>
+<h1>squashing</h1>
 <p>compresses N commits into one commit that&#39;s appended to a destination branch</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>squashing</h1>
-<pre><code>                                           feature</code>
-<code>                                              ↓</code>
-<code>                                      E---F---G </code>
-<code>                                     /</code>
-<code>                        A---B---C---D </code>
-<code>                                    ↑ </code>
-<code>                               master+HEAD</code></pre><pre><code>git merge --squash feature</code></pre><pre><code>                                           feature</code>
-<code>                                              ↓</code>
-<code>                                      E---F---G </code>
-<code>                                     /</code>
-<code>                        A---B---C---D---G&#39; </code>
-<code>                                        ↑ </code>
-<code>                                   master+HEAD</code></pre><p>squashing is used to clean up history, when the thinking behind <code>E..F</code> is unimportant</p>
+<pre><code>                              E---F---G ← feature</code>
+<code>                             /</code>
+<code>                A---B---C---D </code>
+<code>                            ↑ </code>
+<code>                       master+HEAD</code></pre><pre><code>git merge --squash feature</code></pre><pre><code>                              E---F---G ← feature</code>
+<code>                             /</code>
+<code>                A---B---C---D---G&#39; </code>
+<code>                                ↑ </code>
+<code>                           master+HEAD</code></pre><p>cleans up history, when the thinking behind <code>E..F</code> is unimportant</p>
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>cherry picking</h1>
 <p>apply a subset of changes from another branch</p>
-<pre><code>                              E---F---G </code>
-<code>                             /</code>
-<code>                        A---B---C---D </code>
-<code>                                    ↑ </code>
-<code>                               master+HEAD</code></pre><pre><code>git cherry-pick SHA_OF_F</code></pre><pre><code>                              E---F---G </code>
-<code>                             /</code>
-<code>                        A---B---C---D---F&#39; </code>
-<code>                                        ↑ </code>
-<code>                                   master+HEAD</code></pre>
+<pre><code>                            E---F---G </code>
+<code>                           /</code>
+<code>                      A---B---C---D </code>
+<code>                                  ↑ </code>
+<code>                             master+HEAD</code></pre><pre><code>git cherry-pick SHA_OF_F</code></pre><pre><code>                            E---F---G </code>
+<code>                           /</code>
+<code>                      A---B---C---D---F&#39; </code>
+<code>                                      ↑ </code>
+<code>                                 master+HEAD</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>fetch</h1>
+		<p><br/></p>
+<h1>fetch</h1>
 <p>download new commits and update the remote branch pointer</p>
 <p>does not move any local references</p>
 
@@ -534,23 +509,18 @@
 		<h1>fetch</h1>
 <pre><code>                     A---B---E---F   </code>
 <code>(origin)                         ↑ </code>
-<code>                              master (in remote repo)  </code>
-<code>&shy;</code>
-<code>                   origin/master</code>
-<code>                         ↓</code>
-<code>(local)              A---B---C---D </code>
-<code>                                 ↑ </code>
-<code>                              master+HEAD</code></pre><pre><code>% git fetch</code></pre><pre><code>                         origin/master</code>
+<code>                              master (in remote repo)</code></pre><pre><code>                   origin/master</code>
+<code>(local)                  ↓</code>
+<code>                     A---B---C---D ← master+HEAD</code></pre><pre><code>% git fetch</code></pre><pre><code>                         origin/master</code>
 <code>                               ↓</code>
 <code>                           E---F</code>
-<code>                          /</code>
-<code>(local)              A---B---C---D </code>
-<code>                                 ↑ </code>
-<code>                              master+HEAD</code></pre>
+<code>(local)                   /</code>
+<code>                     A---B---C---D ← master+HEAD</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>pull</h1>
+		<p><br/></p>
+<h1>pull</h1>
 <p><code>pull</code> is <code>fetch</code> plus <code>merge</code></p>
 
 	</div></section>
@@ -559,24 +529,18 @@
 		<h1>pull</h1>
 <pre><code>                     A---B---E---F   </code>
 <code>(origin)                         ↑ </code>
-<code>                              master (local ref in remote repo)  </code>
-<code>&shy;</code>
-<code>&shy;</code>
+<code>                              master (local ref in remote repo)</code></pre><pre><code>&shy;</code>
 <code>                   origin/master</code>
-<code>                         ↓</code>
-<code>(local)              A---B---C---D </code>
-<code>                                 ↑ </code>
-<code>                              master+HEAD</code></pre><pre><code>% git pull</code></pre><pre><code>                         origin/master</code>
+<code>(local)                  ↓</code>
+<code>                     A---B---C---D ← master+HEAD</code></pre><pre><code>% git pull</code></pre><pre><code>                         origin/master</code>
 <code>                               ↓</code>
 <code>                           E---F----</code>
 <code>                          /         \</code>
-<code>(local)              A---B---C---D---G </code>
-<code>                                     ↑ </code>
-<code>                                  master+HEAD</code></pre>
+<code>(local)              A---B---C---D---G ← master+HEAD</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>the &#8220;right&#8221; way to pull down changes from the server</p>
+		<h1>the &#8220;right&#8221; way to pull down changes from the server</h1>
 <ol>
 <li><code>stash</code> any uncommitted changes (if any)</li>
 <li><code>fetch</code> the latest refs and commits from origin</li>
@@ -589,8 +553,58 @@
 	</div></section>
 	
 	<section class="slide " ><div>
-		<p>Luckily, <code>git smart-pull</code> (part of the git-smart ruby gem) does all this for us</p>
-<pre><code>gem install git-smart</code></pre>
+		<h1>rebasing pull</h1>
+<p><br/>
+As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
+<pre><code>git pull --rebase</code></pre><p>This will do the <code>fetch</code> + <code>rebase</code> for you (you still stash on your own).</p>
+
+	</div></section>
+	
+	<section class="slide shout myth" ><div>
+		<h1>git is dangerous</h1>
+<h2>myth #1</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>git is the <em>safest</em> version control</h1>
+<h2>reality</h2>
+
+	</div></section>
+	
+	<section class="slide shout myth" ><div>
+		<h1>git lets you<br/>rewrite history</h1>
+<h2>myth #2</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>rewriting <br/>history is a <em>lie</em></h1>
+<h2>reality</h2>
+
+	</div></section>
+	
+	<section class="slide shout myth" ><div>
+		<h1>git syntax is terrible</h1>
+<h2>myth #3</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>git syntax is<br/><em>really terrible</em></h1>
+<h2>reality</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>git mislabels things</h1>
+<h2>ex: git branches aren&#39;t what you think they are</h2>
+
+	</div></section>
+	
+	<section class="slide shout" ><div>
+		<h1>throw away your preconceptions from other version control systems</h1>
+
 	</div></section>
 	
 	<section class="slide shout" ><div>
