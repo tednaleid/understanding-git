@@ -8,7 +8,7 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1398219606000">
+		<link rel="stylesheet" href="styles/screen.css?1398221491000">
 	
 </head>
 <body class="list">
@@ -73,7 +73,13 @@
 <code>author Ted Naleid &lt;contact@naleid.com&gt; 1397505233 -0500</code>
 <code>committer Ted Naleid &lt;contact@naleid.com&gt; 1397505233 -0500</code>
 <code>&shy;</code>
-<code>merging my-feature-branch into master</code></pre>
+<code>merging my-feature-branch into master</code></pre><p>The ID is the SHA of the commit&#39;s contents</p>
+
+	</div></section>
+	
+	<section class="slide quieter shout" ><div>
+		<h1>you can&#39;t modify commits<br/><br/>only add new ones</h1>
+
 	</div></section>
 	
 	<section class="slide quietest shout" ><div>
@@ -84,11 +90,6 @@
 	
 	<section class="slide quieter shout" ><div>
 		<h1>uncommitted work is easily destroyed, so commit early &amp; often</h1>
-
-	</div></section>
-	
-	<section class="slide quieter shout" ><div>
-		<h1>you can&#39;t modify commits<br/><br/>only add new ones</h1>
 
 	</div></section>
 	
@@ -104,7 +105,7 @@
 	
 	<section class="slide " ><div>
 		<h1>what points at commits?</h1>
-<h1>other commits</h1>
+<h1>other commits (the DAG)</h1>
 <h1>tags</h1>
 <h1>branches</h1>
 <h1>the reflog</h1>
@@ -143,7 +144,7 @@
 	
 	<section class="slide " ><div>
 		<h1>branches</h1>
-<p>they&#39;re just pointers, and are easy to move if you don&#39;t like where they are at</p>
+<p>they&#39;re just pointers &amp; are easy to move if you don&#39;t like where they are at</p>
 <pre><code>                        A---B---C</code>
 <code>                                ↑</code>
 <code>                              master</code></pre><pre><code>% git reset --hard SHA_OF_B</code></pre><pre><code>                        A---B---C</code>
@@ -166,7 +167,7 @@
 	
 	<section class="slide " ><div>
 		<h1>branches</h1>
-<p>just text files in <code>.git/refs/heads</code> (local) and <code>.git/refs/remotes</code> (remote)</p>
+<p>just text files in the <code>.git</code> directory</p>
 <pre><code>% ls -1 .git/refs/heads/**/*</code>
 <code>.git/refs/heads/master</code>
 <code>.git/refs/heads/my_feature_branch</code></pre><pre><code>% ls -1 .git/refs/remotes/**/*  </code>
@@ -177,9 +178,17 @@
 	
 	<section class="slide " ><div>
 		<h1>branches</h1>
-<p>branch text file contains is the SHA of the commit it&#39;s pointing at</p>
+<p>contains is the SHA of the commit it&#39;s pointing at</p>
 <pre><code>% cat .git/refs/heads/master </code>
-<code>0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51</code></pre><pre><code>% git cat-file -p 0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51</code>
+<code>0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51</code>
+<code>&shy;</code>
+<code># .git/objects/09/81e8c8ffbd3a1277dda1173fb6f5cbf4750d51</code></pre>
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>branches point at commits</h1>
+<p>Contain <code>tree</code> (filesystem), <code>parent</code> commits and commit metadata</p>
+<pre><code>% git cat-file -p 0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51</code>
 <code>tree 4fd7894316b4659ef3f53426166697858d51a291</code>
 <code>parent e324971ecf1e0f626d4ba8b0adfc22465091c100</code>
 <code>parent d33700dde6d38b051ba240ee97d685afdaf07515</code>
@@ -290,8 +299,8 @@
 	<section class="slide " ><div>
 		<h1>the index</h1>
 <p>a pre-commit staging area</p>
-<p><code>git add .</code> puts all changes in the index ready for commit</p>
-<p>some users bypass the index and commit directly with <code>git commit -a -m &quot;msg&quot;</code></p>
+<p><code>add -A :/</code> puts all changes in the index ready for commit</p>
+<p>some bypass the index with <code>git commit -a -m &quot;msg&quot;</code></p>
 
 	</div></section>
 	
@@ -309,7 +318,7 @@
 	</div></section>
 	
 	<section class="slide quieter shout" ><div>
-		<h1>You need one repo visualization tool that you grok</h1>
+		<h1>You need (at least) one repo visualization tool that you grok</h1>
 
 	</div></section>
 	
@@ -318,13 +327,13 @@
 <pre><code>~/.gitconfig:</code>
 <code>&shy;</code>
 <code>[alias]</code>
-<code>  # one line per commit, ascii graph log showing history from current commit</code>
-<code>  l = log --graph --pretty=&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset&#39; --abbrev-commit --date=relative</code>
+<code>  # ascii graph log showing history from current commit</code>
+<code>  l = git log --graph --pretty=&#39;%h -%d %s [%an] (%cr)&#39;</code>
 <code>&shy;</code>
 <code>  # like above but shows history of all branches</code>
 <code>  la = !git l --all</code>
 <code>&shy;</code>
-<code>  # show just commits currently decorated by branch/tag pointers, really useful for high level picture</code>
+<code>  # filter out &quot;undecorated&quot; commits, only show branches/tags</code>
 <code>  ld = !git l --all --simplify-by-decoration</code></pre>
 	</div></section>
 	
@@ -335,18 +344,18 @@
 	
 	<section class="slide " ><div>
 		<h1>reset --soft</h1>
-<ol>
-<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code></li>
-<li>index - unchanged </li>
-<li>working directory - unchanged </li>
-</ol>
 <pre><code>                    A---B---C---D---E</code>
 <code>                                    ↑</code>
 <code>                                  master</code></pre><pre><code>git reset --soft SHA_OF_C</code></pre><pre><code>                    working dir &amp; index still look like</code>
 <code>                                    ↓</code>
 <code>                    A---B---C---D---E</code>
 <code>                            ↑</code>
-<code>                          master</code></pre>
+<code>                          master</code></pre><ol>
+<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code></li>
+<li>index - unchanged </li>
+<li>working directory - unchanged </li>
+</ol>
+
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -439,6 +448,13 @@
 <code>                  A---B---C---D---E&#39;--F&#39;--G&#39;</code>
 <code>                              ↑           ↑ </code>
 <code>                            master  feature+HEAD</code></pre>
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>rebasing</h1>
+<pre><code>git rebase --abort</code></pre><p>If you get in trouble <code>--abort</code> and try again.  </p>
+<p>If you <em>really</em> get in trouble, you can <code>reset</code> back to your last commit.</p>
+
 	</div></section>
 	
 	<section class="slide " ><div>

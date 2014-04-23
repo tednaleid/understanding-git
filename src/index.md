@@ -66,6 +66,12 @@ committer Ted Naleid <contact@naleid.com> 1397505233 -0500
 merging my-feature-branch into master
 ```
 
+The ID is the SHA of the commit's contents
+
+!SLIDE quieter shout
+
+# you can't modify commits<br/><br/>only add new ones
+
 !SLIDE quietest shout 
 # commits are completely immutable and are _impossible_ to accidentally destroy with git commands
 
@@ -73,10 +79,6 @@ merging my-feature-branch into master
 
 !SLIDE quieter shout 
 # uncommitted work is easily destroyed, so commit early &amp; often
-
-!SLIDE quieter shout
-
-# you can't modify commits<br/><br/>only add new ones
 
 !SLIDE quieter shout
 
@@ -88,7 +90,7 @@ merging my-feature-branch into master
 !SLIDE 
 # what points at commits? 
 
-# other commits
+# other commits (the DAG)
 
 # tags 
 
@@ -156,7 +158,7 @@ floating pointers that move on commit
 !SLIDE 
 # branches 
 
-they're just pointers, and are easy to move if you don't like where they are at
+they're just pointers & are easy to move if you don't like where they are at
 ```
                         A---B---C
                                 ↑
@@ -194,7 +196,8 @@ for most commands, there's nothing remote about them...they're just moved on a <
 
 !SLIDE 
 # branches 
-just text files in <code>.git/refs/heads</code> (local) and <code>.git/refs/remotes</code> (remote)
+
+just text files in the `.git` directory
 
 ```
 % ls -1 .git/refs/heads/**/*
@@ -212,13 +215,19 @@ just text files in <code>.git/refs/heads</code> (local) and <code>.git/refs/remo
 !SLIDE 
 # branches 
 
-branch text file contains is the SHA of the commit it's pointing at
+contains is the SHA of the commit it's pointing at
 
 ```
 % cat .git/refs/heads/master 
 0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51
+
+# .git/objects/09/81e8c8ffbd3a1277dda1173fb6f5cbf4750d51
 ```
 
+!SLIDE 
+# branches point at commits 
+
+Contain `tree` (filesystem), `parent` commits and commit metadata
 ```
 % git cat-file -p 0981e8c8ffbd3a1277dda1173fb6f5cbf4750d51
 tree 4fd7894316b4659ef3f53426166697858d51a291
@@ -362,9 +371,9 @@ to prevent garbage collecting a commit, just point something at it
 
 a pre-commit staging area
 
-<code>git add .</code> puts all changes in the index ready for commit
+<code>add -A :/</code> puts all changes in the index ready for commit
 
-some users bypass the index and commit directly with <code>git commit -a -m "msg"</code>
+some bypass the index with <code>git commit -a -m "msg"</code>
 
 !SLIDE 
 <br/>
@@ -382,7 +391,7 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 !SLIDE quieter shout
 
-# You need one repo visualization tool that you grok
+# You need (at least) one repo visualization tool that you grok
 
 
 !SLIDE 
@@ -393,13 +402,13 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 ~/.gitconfig:
 
 [alias]
-  # one line per commit, ascii graph log showing history from current commit
-  l = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  # ascii graph log showing history from current commit
+  l = git log --graph --pretty='%h -%d %s [%an] (%cr)'
 
   # like above but shows history of all branches
   la = !git l --all
 
-  # show just commits currently decorated by branch/tag pointers, really useful for high level picture
+  # filter out "undecorated" commits, only show branches/tags
   ld = !git l --all --simplify-by-decoration
 ```
 
@@ -408,10 +417,6 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 !SLIDE 
 # reset --soft 
-
-1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code>
-2. index - unchanged 
-3. working directory - unchanged 
 
 ```
                     A---B---C---D---E
@@ -430,6 +435,9 @@ git reset --soft SHA_OF_C
                             ↑
                           master
 ```
+1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code>
+2. index - unchanged 
+3. working directory - unchanged 
 
 
 !SLIDE 
@@ -573,6 +581,17 @@ then moves the current branch pointer
                               ↑           ↑ 
                             master  feature+HEAD
 ```
+
+!SLIDE 
+# rebasing 
+
+```
+git rebase --abort
+```
+
+If you get in trouble `--abort` and try again.  
+
+If you _really_ get in trouble, you can `reset` back to your last commit.
 
 !SLIDE 
 <br/>
