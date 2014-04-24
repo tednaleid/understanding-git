@@ -8,66 +8,6 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
 ## by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 
-!SLIDE shout
-
-# What is git?
-
-!SLIDE quieter shout
-
-# a file-system datastore that holds immutable objects
-
-!SLIDE shout
-
-# WTF does that mean?
-
-!SLIDE  
-
-<br/>
-# commit nodes form a DAG 
-
-```
-                  E---F---G 
-                 /
-            A---B---C---D-----------K---L---M 
-                         \         /
-                          H---I---J
-```
-
-## DAG = &#8220;Directed Acyclic Graph&#8221;
-
-!SLIDE 
-
-<br/>
-# DAG nodes each represent a commit
-
-```
-                  E---F---G 
-                 /
-            A---B---C---D-----------K---L---M 
-                         \         /
-                          H---I---J
-```
-
-
-!SLIDE 
-# Every Commit has a Unique ID 
-
-```
-% cat .git/refs/heads/master                  
-3739fd313542160733035fc44a386229718989dc
-
-% git cat-file -p 3739fd313542160733035fc44a386229718989dc         
-tree e688b2a15544115cd85f5d6dcf00168b40847720
-parent ff1eaa718bb1edbda05e0aee9b074c9635add720
-parent f6ef529a26e885832dfbd1f2b156c31eb52b1f6c
-author Ted Naleid <contact@naleid.com> 1397505233 -0500
-committer Ted Naleid <contact@naleid.com> 1397505233 -0500
-
-merging my-feature-branch into master
-```
-
-The ID is the SHA of the commit's contents
-
 !SLIDE quieter shout
 
 # you can't modify commits<br/><br/>only add new ones
@@ -75,7 +15,7 @@ The ID is the SHA of the commit's contents
 !SLIDE quietest shout 
 # commits are completely immutable and are _impossible_ to accidentally destroy with git commands
 
-## though <code>rm -rf yourrepo</code> will lose anything not yet pushed out
+## though <code>rm -rf .git</code> will lose anything not yet pushed out
 
 !SLIDE quieter shout 
 # uncommitted work is easily destroyed, so commit early &amp; often
@@ -90,7 +30,7 @@ The ID is the SHA of the commit's contents
 !SLIDE 
 # what points at commits? 
 
-# other commits (the DAG)
+# other commits
 
 # tags 
 
@@ -100,7 +40,7 @@ The ID is the SHA of the commit's contents
 
 !SLIDE 
 <br/>
-# commits 
+# commit
 
 point at 0..N parent commits 
 
@@ -114,8 +54,8 @@ most commonly 1 or 2 parent commits
 
 !SLIDE 
 
-# tags 
-fixed pointers
+# tag 
+fixed commit pointers
 
 ```
                       A---B---C 
@@ -134,9 +74,9 @@ fixed pointers
 ```
 
 !SLIDE 
-# branches 
+# branch 
 
-floating pointers that move on commit
+floating commit pointer
 
 ```
                           A---B
@@ -156,9 +96,9 @@ floating pointers that move on commit
 
 
 !SLIDE 
-# branches 
+# branch
 
-they're just pointers & are easy to move if you don't like where they are at
+just commit pointers & are easy to move if you don't like where they are at
 ```
                         A---B---C
                                 ↑
@@ -181,23 +121,23 @@ commit <code>C</code> still exists and was not harmed by moving the pointer
 we'll talk more about <code>reset</code> in a bit
 
 !SLIDE 
-# remote branches 
-&#8220;remote&#8221; branches are just pointers in your local repo
+# remote branch 
+a &#8220;remote&#8221; branch is just a commit pointer in your local repo
 
 ```
-                              origin/master
+                                 master
                                     ↓
                     A---B---C---D---E
                             ↑       
-                          master    
+                      origin/master    
 ```
 
-for most commands, there's nothing remote about them...they're just moved on a <code>fetch</code> or <code>pull</code>
+it's updated whenever you do a `fetch` or `pull`, otherwise nothing remote about them
 
 !SLIDE 
-# branches 
+# branch
 
-just text files in the `.git` directory
+text files in the `.git` directory
 
 ```
 % ls -1 .git/refs/heads/**/*
@@ -213,7 +153,7 @@ just text files in the `.git` directory
 ```
 
 !SLIDE 
-# branches 
+# branch 
 
 contains is the SHA of the commit it's pointing at
 
@@ -239,6 +179,8 @@ committer Ted Naleid <contact@naleid.com> 1328567163 -0800
 merge commit of two branches
 ```
 
+The ID is the SHA of the commit's contents
+
 !SLIDE 
 <br/>
 # branches 
@@ -263,7 +205,9 @@ a branch's commits are implied by the ancestry of the commit the branch points a
 !SLIDE
 # HEAD 
 
-<code>HEAD</code> is the active commit that will be the parent of the next commit
+<code>HEAD</code> is the current branch/commit 
+
+This will be the parent of the next commit
 
 ```
 % cat .git/HEAD
@@ -294,14 +238,14 @@ d72efc4 HEAD@{1}: commit: adding bar.txt
 6435f38 HEAD@{2}: commit (initial): adding foo.txt
 ```
 
-by default it contains up to two weeks of history
+by default it contains up to 30 days of history
 
 !SLIDE 
 <br/>
 # the reflog 
 unique to a repository instance
 
-a garbage collected commit can still exist in a clone
+garbage collected commits might still exist in another clone
 
 !SLIDE 
 <br/>
@@ -331,7 +275,7 @@ if the only thing pointing to a commit is the reflog, it's &#8220;dangling&#8221
 !SLIDE 
 # dangling commit 
 
-but they will be safe for ~2 weeks because of the reflog
+but they will be safe for ~30 days because of the reflog
 
 ```
                                      HEAD@{1}
@@ -398,6 +342,9 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 # Here's Mine:
 
+## TODO insert screenshot/other examples
+## TODO insert info about good prompting
+
 ```
 ~/.gitconfig:
 
@@ -414,6 +361,10 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 !SLIDE shout
 # Learn<br/>&#8220;the good parts&#8221; and make them your own
+
+!SLIDE quieter shout
+
+# `reset` is for moving branch pointers
 
 !SLIDE 
 # reset --soft 
@@ -464,21 +415,6 @@ git commit -m "perfect code on the 'first' try"
 
 
 !SLIDE 
-# reset (default)
-
-```
-git reset [--mixed] <SHA>
-```
-
-<br/>
-
-1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
-2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
-3. working directory - unchanged
-
-<code>git reset HEAD</code> will unstage everything in the index
-
-!SLIDE 
 # reset --hard
 ```
 git reset --hard <SHA>
@@ -513,7 +449,7 @@ redo the last commit
 
 ```
 <... change some files ... > 
-git commit --amend -m "New commit message"
+commit -a --amend --no-edit
 ```
 ```
                               C' ← master+HEAD
@@ -522,31 +458,6 @@ git commit --amend -m "New commit message"
                                 ↑    
                   (dangling but still in reflog)
 ```
-
-
-!SLIDE
-
-# recovering commits
-
-Oops, I really wanted <code>C</code>!
-
-```
-                              C' ← master+HEAD
-                             /
-                        A---B---C ← (dangling)
-```
-```
-git reflog  # find SHA_OF_C 
-git reset --hard SHA_OF_C
-```
-```
-                              C' ← (dangling)
-                             /
-                        A---B---C
-                                ↑    
-                            master+HEAD
-```
-
 
 
 !SLIDE 
@@ -561,11 +472,11 @@ then moves the current branch pointer
 # rebasing 
 
 ```
-                        E---F---G  ← feature+HEAD
+                        E---F  ← feature+HEAD
                        /
                   A---B---C---D 
                               ↑ 
-                            master
+                           master
 ```
 
 ```
@@ -574,12 +485,12 @@ then moves the current branch pointer
 
 ```
                   (dangling but still in reflog)
-                                ↓
-                        E---F---G
+                            ↓
+                        E---F
                        /
-                  A---B---C---D---E'--F'--G'
-                              ↑           ↑ 
-                            master  feature+HEAD
+                  A---B---C---D---E'--F'
+                              ↑       ↑ 
+                           master  feature+HEAD
 ```
 
 !SLIDE 
@@ -591,7 +502,7 @@ git rebase --abort
 
 If you get in trouble `--abort` and try again.  
 
-If you _really_ get in trouble, you can `reset` back to your last commit.
+If you _really_ get in trouble, you can `reset --hard` back to your last commit.
 
 !SLIDE 
 <br/>
@@ -607,37 +518,6 @@ public rebasing is bad as others could have the same commits with different SHAs
 <br/>
 # rebasing - a private activity
 if you want to clean things up, an alternative is to create another branch, rebase onto that and push it out
-
-!SLIDE 
-<br/>
-# squashing 
-
-compresses N commits into one commit that's appended to a destination branch
-
-!SLIDE 
-# squashing 
-
-```
-                              E---F---G ← feature
-                             /
-                A---B---C---D 
-                            ↑ 
-                       master+HEAD
-```
-
-```
-git merge --squash feature
-```
-
-```
-                              E---F---G ← feature
-                             /
-                A---B---C---D---G' 
-                                ↑ 
-                           master+HEAD
-```
-
-cleans up history, when the thinking behind <code>E..F</code> is unimportant
 
 
 !SLIDE 
@@ -795,3 +675,74 @@ This will do the `fetch` + `rebase` for you (you still stash on your own).
 # Questions? 
 
 
+!SLIDE shout
+# Bonus Section
+
+!SLIDE 
+# reset (default)
+
+```
+git reset [--mixed] <SHA>
+```
+
+<br/>
+
+1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
+2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
+3. working directory - unchanged
+
+<code>git reset HEAD</code> will unstage everything in the index
+
+!SLIDE 
+<br/>
+# squashing 
+
+compresses N commits into one commit that's appended to a destination branch
+
+!SLIDE 
+# squashing 
+
+```
+                              E---F---G ← feature
+                             /
+                A---B---C---D 
+                            ↑ 
+                       master+HEAD
+```
+
+```
+git merge --squash feature
+```
+
+```
+                              E---F---G ← feature
+                             /
+                A---B---C---D---G' 
+                                ↑ 
+                           master+HEAD
+```
+
+cleans up history, when the thinking behind <code>E..F</code> is unimportant
+
+!SLIDE
+
+# recovering commits
+
+Oops, I really wanted <code>C</code>!
+
+```
+                              C' ← master+HEAD
+                             /
+                        A---B---C ← (dangling)
+```
+```
+git reflog  # find SHA_OF_C 
+git reset --hard SHA_OF_C
+```
+```
+                              C' ← (dangling)
+                             /
+                        A---B---C
+                                ↑    
+                            master+HEAD
+```
