@@ -94,32 +94,6 @@ floating commit pointer
                                 master
 ```
 
-
-!SLIDE 
-# branch
-
-just commit pointers & are easy to move if you don't like where they are at
-```
-                        A---B---C
-                                ↑
-                              master
-```
-
-```
-% git reset --hard SHA_OF_B
-```
-
-```
-                        A---B---C
-                            ↑
-                          master
-```
-
-
-commit <code>C</code> still exists and was not harmed by moving the pointer
-
-we'll talk more about <code>reset</code> in a bit
-
 !SLIDE 
 # remote branch 
 a &#8220;remote&#8221; branch is just a commit pointer in your local repo
@@ -238,14 +212,25 @@ d72efc4 HEAD@{1}: commit: adding bar.txt
 6435f38 HEAD@{2}: commit (initial): adding foo.txt
 ```
 
-by default it contains up to 30 days of history
+by default it keeps at least 30 days of history
+
 
 !SLIDE 
 <br/>
 # the reflog 
 unique to a repository instance
 
-garbage collected commits might still exist in another clone
+!SLIDE 
+# the reflog 
+can be scoped to a particular branch
+
+```
+% git reflog my_branch
+347f5fe my_branch@{0}: merge master: Merge made by the recurs… 
+4e6007e my_branch@{1}: merge origin/my_branch: Fast-forward
+32834d8 my_branch@{2}: commit (amend): upgrade redis version
+2720e40 my_branch@{3}: commit: upgrade redis version 
+```
 
 !SLIDE 
 <br/>
@@ -342,22 +327,40 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 
 # Here's Mine:
 
-## TODO insert screenshot/other examples
-## TODO insert info about good prompting
-
 ```
 ~/.gitconfig:
-
 [alias]
-  # ascii graph log showing history from current commit
   l = git log --graph --pretty='%h -%d %s [%an] (%cr)'
-
-  # like above but shows history of all branches
-  la = !git l --all
-
-  # filter out "undecorated" commits, only show branches/tags
-  ld = !git l --all --simplify-by-decoration
 ```
+```
+git l
+```
+
+```
+*   245ab64 - Merge pull request #32 from michaelcamer…
+|\
+| * 54f1379 - Fix the implementation on soft setting the…
+|/
+* f88cc8d - prepare for release [Ted Naleid] (3 weeks ago)
+*   9fa65f8 - Merge branch 'michaelcameron-warn-on-bad-p…
+|\
+| * c55baa7 - (michaelcameron-warn-on-bad-pool-config) W…
+* | ed2c18f - prep for release [Ted Naleid] (3 weeks ago)
+|/
+* 1d87244 - updated release note for 1.5.1 [Ted Naleid] …
+```
+
+!SLIDE
+
+# There are others - Git Tower
+
+<img src="images/tower.png" alt="">
+
+!SLIDE
+
+# There are others - SourceTree
+
+<img src="images/sourcetree.png" alt="">
 
 !SLIDE shout
 # Learn<br/>&#8220;the good parts&#8221; and make them your own
@@ -365,6 +368,30 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 !SLIDE quieter shout
 
 # `reset` is for moving branch pointers
+
+!SLIDE 
+# reset --hard
+```
+git reset --hard <SHA>
+```
+
+<br/>
+1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
+2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
+3. clean the working copy, make it look like <code>&lt;SHA&gt;</code> 
+
+<span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
+
+!SLIDE 
+# reset --hard HEAD 
+```
+git reset --hard HEAD
+```
+
+just means clean out the working directory and any staged information, don't move the branch pointer
+
+for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
+
 
 !SLIDE 
 # reset --soft 
@@ -413,51 +440,65 @@ git commit -m "perfect code on the 'first' try"
                               master
 ```
 
+!SLIDE 
+# reset --soft 
+
+What if you've got a more complicated situation:
+
+```
+                              master
+                                ↓
+                A---B---C---D---E 
+                 \       \
+                  F---G---H---I ← feature & HEAD
+```
+
+Can't `reset` our way out of this, right?
 
 !SLIDE 
-# reset --hard
+# reset --soft 
+
+Just do one last merge
+
 ```
-git reset --hard <SHA>
+git merge master
 ```
 
-<br/>
-1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
-2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
-3. clean the working copy, make it look like <code>&lt;SHA&gt;</code> 
-
-<span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
+```
+                              master
+                                ↓
+                A---B---C---D---E 
+                 \       \       \
+                  F---G---H---I---J ← feature & HEAD
+```
 
 !SLIDE 
-# reset --hard HEAD 
+# reset --soft 
+
+and then we can `reset` into a single commit 
+
 ```
-git reset --hard HEAD
-```
-
-just means clean out the working directory and any staged information, don't move the branch pointer
-
-for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
-
-!SLIDE
-# commit --amend
-
-redo the last commit
-```
-                        A---B---C
-                                ↑    
-                            master+HEAD
+git reset --soft master
 ```
 
 ```
-<... change some files ... > 
-commit -a --amend --no-edit
+                A---B---C---D---E ← feature & HEAD & master
+                                 \
+                                  J ← working dir & index 
 ```
+
 ```
-                              C' ← master+HEAD
-                             /
-                        A---B---C
-                                ↑    
-                  (dangling but still in reflog)
+git commit -m "pristine J"
 ```
+
+```
+                              master
+                                ↓
+                A---B---C---D---E---J' ← feature & HEAD 
+```
+
+
+
 
 
 !SLIDE 
@@ -472,7 +513,7 @@ then moves the current branch pointer
 # rebasing 
 
 ```
-                        E---F  ← feature+HEAD
+                        E---F  ← feature & HEAD
                        /
                   A---B---C---D 
                               ↑ 
@@ -490,7 +531,7 @@ then moves the current branch pointer
                        /
                   A---B---C---D---E'--F'
                               ↑       ↑ 
-                           master  feature+HEAD
+                           master  feature & HEAD
 ```
 
 !SLIDE 
@@ -514,11 +555,6 @@ should never be done with commits that have been pushed
 # rebasing - a private activity
 public rebasing is bad as others could have the same commits with different SHAs
 
-!SLIDE
-<br/>
-# rebasing - a private activity
-if you want to clean things up, an alternative is to create another branch, rebase onto that and push it out
-
 
 !SLIDE 
 # cherry picking 
@@ -530,7 +566,7 @@ apply a subset of changes from another branch
                            /
                       A---B---C---D 
                                   ↑ 
-                             master+HEAD
+                             master & HEAD
 ```
 
 ```
@@ -542,7 +578,7 @@ git cherry-pick SHA_OF_F
                            /
                       A---B---C---D---F' 
                                       ↑ 
-                                 master+HEAD
+                                 master & HEAD
 ```
 
 
@@ -552,7 +588,7 @@ git cherry-pick SHA_OF_F
 
 download new commits and update the remote branch pointer
 
-does not move any local references
+does not move any local branches
 
 !SLIDE 
 # fetch 
@@ -565,7 +601,7 @@ does not move any local references
 ```
                    origin/master
 (local)                  ↓
-                     A---B---C---D ← master+HEAD 
+                     A---B---C---D ← master & HEAD 
 ```
 
 ```
@@ -578,7 +614,7 @@ does not move any local references
                                ↓
                            E---F
 (local)                   /
-                     A---B---C---D ← master+HEAD
+                     A---B---C---D ← master & HEAD
 ```
 
 
@@ -592,15 +628,15 @@ does not move any local references
 # pull 
 
 ```
-                     A---B---E---F   
-(origin)                         ↑ 
-                              master (local ref in remote repo)  
-```
-```
 
                    origin/master
 (local)                  ↓
-                     A---B---C---D ← master+HEAD
+                     A---B---C---D ← master & HEAD
+```
+```
+                     A---B---E---F   
+(origin)                         ↑ 
+                              master (local ref in remote repo)  
 ```
 
 ```
@@ -613,7 +649,7 @@ does not move any local references
                                ↓
                            E---F----
                           /         \
-(local)              A---B---C---D---G ← master+HEAD
+(local)              A---B---C---D---G ← master & HEAD
 ```
 
 !SLIDE 
@@ -676,7 +712,7 @@ This will do the `fetch` + `rebase` for you (you still stash on your own).
 
 
 !SLIDE shout
-# Bonus Section
+# Bonus Section!
 
 !SLIDE 
 # reset (default)
@@ -693,6 +729,28 @@ git reset [--mixed] <SHA>
 
 <code>git reset HEAD</code> will unstage everything in the index
 
+!SLIDE
+# commit --amend
+
+redo the last commit
+```
+                        A---B---C
+                                ↑    
+                          master & HEAD
+```
+
+```
+<... change some files ... > 
+commit -a --amend --no-edit
+```
+```
+                              C' ← master & HEAD
+                             /
+                        A---B---C
+                                ↑    
+                  (dangling but still in reflog)
+```
+
 !SLIDE 
 <br/>
 # squashing 
@@ -707,7 +765,7 @@ compresses N commits into one commit that's appended to a destination branch
                              /
                 A---B---C---D 
                             ↑ 
-                       master+HEAD
+                     master & HEAD
 ```
 
 ```
@@ -719,7 +777,7 @@ git merge --squash feature
                              /
                 A---B---C---D---G' 
                                 ↑ 
-                           master+HEAD
+                         master & HEAD
 ```
 
 cleans up history, when the thinking behind <code>E..F</code> is unimportant
@@ -731,7 +789,7 @@ cleans up history, when the thinking behind <code>E..F</code> is unimportant
 Oops, I really wanted <code>C</code>!
 
 ```
-                              C' ← master+HEAD
+                              C' ← master & HEAD
                              /
                         A---B---C ← (dangling)
 ```
@@ -744,5 +802,5 @@ git reset --hard SHA_OF_C
                              /
                         A---B---C
                                 ↑    
-                            master+HEAD
+                            master & HEAD
 ```
