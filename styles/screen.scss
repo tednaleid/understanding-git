@@ -195,6 +195,24 @@ span.danger {
 		}
 	}
 
+	&.small-code {
+		pre, code {
+			font-size: .68em;
+		}
+	}
+
+	&.smallish-code {
+		pre, code {
+			font-size: .9em;
+		}
+	}
+
+	&.push-content-down {
+		h1 {
+			padding-bottom: 60px;
+		}
+	}
+
 	&.myth {
 		h1 {
 			color: $git-blue;

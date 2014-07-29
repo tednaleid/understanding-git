@@ -8,7 +8,7 @@
 	<meta name="generator" content="https://github.com/sapegin/grunt-shower-markdown">
 	<link rel="stylesheet" href="themes/ribbon/styles/screen.css">
 	
-		<link rel="stylesheet" href="styles/screen.css?1399655661000">
+		<link rel="stylesheet" href="styles/screen.css?1406614775000">
 	
 </head>
 <body class="list">
@@ -64,9 +64,9 @@
 		<p><br/></p>
 <h1>commit</h1>
 <p>point at 0..N parent commits </p>
-<pre><code>                              E---F---G </code>
-<code>                             /</code>
-<code>                        A---B---C---D</code></pre><p>most commonly 1 or 2 parent commits</p>
+<pre><code>                          E---F---G</code>
+<code>                         /         \</code>
+<code>                    A---B---C---D---H---I</code></pre><p>most commonly 1 or 2 parent commits</p>
 
 	</div></section>
 	
@@ -75,7 +75,7 @@
 <p>fixed commit pointers</p>
 <pre><code>                      A---B---C </code>
 <code>                              ↑</code>
-<code>                         release_1.0</code></pre><pre><code>    % git commit -m &quot;adding stuff to C&quot;</code></pre><pre><code>                      A---B---C---D </code>
+<code>                         release_1.0</code></pre><pre><code>% git commit -m &quot;adding stuff to C&quot;</code></pre><pre><code>                      A---B---C---D </code>
 <code>                              ↑</code>
 <code>                         release_1.0</code></pre>
 	</div></section>
@@ -83,9 +83,9 @@
 	<section class="slide " ><div>
 		<h1>branch</h1>
 <p>floating commit pointer</p>
-<pre><code>                          A---B</code>
+<pre><code>                      A---B---C</code>
 <code>                              ↑</code>
-<code>                            master</code></pre><pre><code>% git commit -m &quot;adding stuff to B&quot;</code></pre><pre><code>                          A---B---C</code>
+<code>                            master</code></pre><pre><code>% git commit -m &quot;adding stuff to B&quot;</code></pre><pre><code>                      A---B---C---D</code>
 <code>                                  ↑</code>
 <code>                                master</code></pre>
 	</div></section>
@@ -269,32 +269,24 @@
 
 	</div></section>
 	
-	<section class="slide " ><div>
+	<section class="slide small-code" ><div>
 		<h1>Here&#39;s Mine:</h1>
 <pre><code>~/.gitconfig:</code>
 <code>[alias]</code>
-<code>  l = git log --graph --pretty=&#39;%h -%d %s [%an] (%cr)&#39;</code></pre><pre><code>git l</code></pre><pre><code>*   245ab64 - Merge pull request #32 from michaelcamer…</code>
-<code>|\</code>
-<code>| * 54f1379 - Fix the implementation on soft setting the…</code>
-<code>|/</code>
-<code>* f88cc8d - prepare for release [Ted Naleid] (3 weeks ago)</code>
-<code>*   9fa65f8 - Merge branch &#39;michaelcameron-warn-on-bad-p…</code>
-<code>|\</code>
-<code>| * c55baa7 - (michaelcameron-warn-on-bad-pool-config) W…</code>
-<code>* | ed2c18f - prep for release [Ted Naleid] (3 weeks ago)</code>
-<code>|/</code>
-<code>* 1d87244 - updated release note for 1.5.1 [Ted Naleid] …</code></pre>
+<code>l = log --graph --pretty=&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset&#39; --abbrev-commit --date=relative</code>
+<code>la = !git l --all</code></pre><pre><code>git la</code></pre><img src="images/terminal.png" alt="" height="400px">
+
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>There are others - Git Tower</h1>
-<img src="images/tower.png" alt="">
+<img src="images/tower.png" alt="" height="500px">
 
 	</div></section>
 	
 	<section class="slide " ><div>
 		<h1>There are others - SourceTree</h1>
-<img src="images/sourcetree.png" alt="">
+<img src="images/sourcetree.png" alt="" height="500px">
 
 	</div></section>
 	
@@ -303,87 +295,31 @@
 
 	</div></section>
 	
-	<section class="slide quieter shout" ><div>
-		<h1><code>reset</code> is for moving branch pointers</h1>
-
+	<section class="slide " ><div>
+		<h1>checkout -</h1>
+<p>just like <code>cd -</code>, takes you to your previous branch</p>
+<pre><code>                        E---F  ← feature &amp; HEAD</code>
+<code>                       /</code>
+<code>                  A---B---C---D </code>
+<code>                              ↑ </code>
+<code>                           master</code></pre><pre><code>% git checkout -</code></pre><pre><code>                        E---F  ← feature </code>
+<code>                       /</code>
+<code>                  A---B---C---D </code>
+<code>                              ↑ </code>
+<code>                       master &amp; HEAD</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
-		<h1>reset --hard</h1>
-<pre><code>git reset --hard &lt;SHA&gt;</code></pre><p><br/></p>
-<ol>
-<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code> </li>
-<li>clean the index, make it look like <code>&lt;SHA&gt;</code> </li>
-<li>clean the working copy, make it look like <code>&lt;SHA&gt;</code> </li>
-</ol>
-<p><span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits</p>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --hard HEAD</h1>
-<pre><code>git reset --hard HEAD</code></pre><p>just means clean out the working directory and any staged information, don&#39;t move the branch pointer</p>
-<p>for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a></p>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --soft</h1>
-<pre><code>                    A---B---C---D---E</code>
-<code>                                    ↑</code>
-<code>                                  master</code></pre><pre><code>git reset --soft SHA_OF_C</code></pre><pre><code>                    working dir &amp; index still look like</code>
-<code>                                    ↓</code>
-<code>                    A---B---C---D---E</code>
-<code>                            ↑</code>
-<code>                          master</code></pre><ol>
-<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code></li>
-<li>index - unchanged </li>
-<li>working directory - unchanged </li>
-</ol>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --soft</h1>
-<p>useful for squashing the last few messy commits into one pristine commit</p>
-<pre><code>                    working dir &amp; index still look like</code>
-<code>                                    ↓</code>
-<code>                    A---B---C---D---E</code>
-<code>                            ↑</code>
-<code>                          master</code></pre><pre><code>git commit -m &quot;perfect code on the &#39;first&#39; try&quot;</code></pre><pre><code>                    A---B---C---E&#39;</code>
-<code>                                ↑</code>
-<code>                              master</code></pre>
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --soft</h1>
-<p>What if you&#39;ve got a more complicated situation:</p>
-<pre><code>                              master</code>
-<code>                                ↓</code>
-<code>                A---B---C---D---E </code>
-<code>                 \       \</code>
-<code>                  F---G---H---I ← feature &amp; HEAD</code></pre><p>Can&#39;t <code>reset</code> our way out of this, right?</p>
-
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --soft</h1>
-<p>Just do one last merge</p>
-<pre><code>git merge master</code></pre><pre><code>                              master</code>
-<code>                                ↓</code>
-<code>                A---B---C---D---E </code>
-<code>                 \       \       \</code>
-<code>                  F---G---H---I---J ← feature &amp; HEAD</code></pre>
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>reset --soft</h1>
-<p>and then we can <code>reset</code> into a single commit </p>
-<pre><code>git reset --soft master</code></pre><pre><code>                A---B---C---D---E ← feature &amp; HEAD &amp; master</code>
-<code>                                 \</code>
-<code>                                  J ← working dir &amp; index</code></pre><pre><code>git commit -m &quot;pristine J&quot;</code></pre><pre><code>                              master</code>
-<code>                                ↓</code>
-<code>                A---B---C---D---E---J&#39; ← feature &amp; HEAD</code></pre>
+		<h1>commit --amend</h1>
+<p>redo the last commit</p>
+<pre><code>                        A---B---C</code>
+<code>                                ↑    </code>
+<code>                          master &amp; HEAD</code></pre><pre><code>&lt;... change some files ... &gt; </code>
+<code>% git commit -a --amend --no-edit</code></pre><pre><code>                              C&#39; ← master &amp; HEAD</code>
+<code>                             /</code>
+<code>                        A---B---C</code>
+<code>                                ↑    </code>
+<code>                  (dangling but still in reflog)</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -400,7 +336,7 @@
 <code>                       /</code>
 <code>                  A---B---C---D </code>
 <code>                              ↑ </code>
-<code>                           master</code></pre><pre><code>   git rebase master</code></pre><pre><code>                  (dangling but still in reflog)</code>
+<code>                           master</code></pre><pre><code>% git rebase master</code></pre><pre><code>                  (dangling but still in reflog)</code>
 <code>                            ↓</code>
 <code>                        E---F</code>
 <code>                       /</code>
@@ -411,7 +347,7 @@
 	
 	<section class="slide " ><div>
 		<h1>rebasing</h1>
-<pre><code>git rebase --abort</code></pre><p>If you get in trouble <code>--abort</code> and try again.  </p>
+<pre><code>% git rebase --abort</code></pre><p>If you get in trouble <code>--abort</code> and try again.  </p>
 <p>If you <em>really</em> get in trouble, you can <code>reset --hard</code> back to your last commit.</p>
 
 	</div></section>
@@ -437,11 +373,94 @@
 <code>                           /</code>
 <code>                      A---B---C---D </code>
 <code>                                  ↑ </code>
-<code>                             master &amp; HEAD</code></pre><pre><code>git cherry-pick SHA_OF_F</code></pre><pre><code>                            E---F---G </code>
+<code>                             master &amp; HEAD</code></pre><pre><code>% git cherry-pick SHA_OF_F</code></pre><pre><code>                            E---F---G </code>
 <code>                           /</code>
 <code>                      A---B---C---D---F&#39; </code>
 <code>                                      ↑ </code>
 <code>                                 master &amp; HEAD</code></pre>
+	</div></section>
+	
+	<section class="slide quieter shout" ><div>
+		<h1><code>reset</code> is for moving branch pointers</h1>
+
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --soft</h1>
+<pre><code>                    A---B---C---D---E</code>
+<code>                                    ↑</code>
+<code>                                  master</code></pre><pre><code>% git reset --soft SHA_OF_C</code></pre><pre><code>                    working dir &amp; index still look like</code>
+<code>                                    ↓</code>
+<code>                    A---B---C---D---E</code>
+<code>                            ↑</code>
+<code>                          master</code></pre><ol>
+<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code></li>
+<li>index - unchanged </li>
+<li>working directory - unchanged </li>
+</ol>
+
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --soft</h1>
+<p>useful for squashing the last few messy commits into one pristine commit</p>
+<pre><code>                    working dir &amp; index still look like</code>
+<code>                                    ↓</code>
+<code>                    A---B---C---D---E</code>
+<code>                            ↑</code>
+<code>                          master</code></pre><pre><code>% git commit -m &quot;perfect code on the &#39;first&#39; try&quot;</code></pre><pre><code>                    A---B---C---E&#39;</code>
+<code>                                ↑</code>
+<code>                              master</code></pre>
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --soft</h1>
+<p>What if you&#39;ve got a more complicated situation:</p>
+<pre><code>                              master</code>
+<code>                                ↓</code>
+<code>                A---B---C---D---E </code>
+<code>                 \       \</code>
+<code>                  F---G---H---I ← feature &amp; HEAD</code></pre><p>Can&#39;t <code>reset</code> our way out of this, right?</p>
+
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --soft</h1>
+<p>Just do one last merge</p>
+<pre><code>% git merge master</code></pre><pre><code>                              master</code>
+<code>                                ↓</code>
+<code>                A---B---C---D---E </code>
+<code>                 \       \       \</code>
+<code>                  F---G---H---I---J ← feature &amp; HEAD</code></pre>
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --soft</h1>
+<p>and then we can <code>reset</code> into a single commit </p>
+<pre><code>% git reset --soft master</code></pre><pre><code>                A---B---C---D---E ← feature &amp; HEAD &amp; master</code>
+<code>                                 \</code>
+<code>                                  J ← working dir &amp; index</code></pre><pre><code>% git commit -m &quot;pristine J&quot;</code></pre><pre><code>                              master</code>
+<code>                                ↓</code>
+<code>                A---B---C---D---E---J&#39; ← feature &amp; HEAD</code></pre>
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --hard</h1>
+<pre><code>% git reset --hard &lt;SHA&gt;</code></pre><p><br/></p>
+<ol>
+<li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code> </li>
+<li>clean the index, make it look like <code>&lt;SHA&gt;</code> </li>
+<li>clean the working copy, make it look like <code>&lt;SHA&gt;</code> </li>
+</ol>
+<p><span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits</p>
+
+	</div></section>
+	
+	<section class="slide " ><div>
+		<h1>reset --hard HEAD</h1>
+<pre><code>% git reset --hard HEAD</code></pre><p>just means clean out the working directory and any staged information, don&#39;t move the branch pointer</p>
+<p>for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a></p>
+
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -454,11 +473,11 @@
 	
 	<section class="slide " ><div>
 		<h1>fetch</h1>
-<pre><code>                     A---B---E---F   </code>
-<code>(origin)                         ↑ </code>
-<code>                              master (in remote repo)</code></pre><pre><code>                   origin/master</code>
+<pre><code>                   origin/master</code>
 <code>(local)                  ↓</code>
-<code>                     A---B---C---D ← master &amp; HEAD</code></pre><pre><code>% git fetch</code></pre><pre><code>                         origin/master</code>
+<code>                     A---B---C---D ← master &amp; HEAD</code></pre><pre><code>                     A---B---E---F   </code>
+<code>(origin)                         ↑ </code>
+<code>                              master (in remote repo)</code></pre><pre><code>% git fetch</code></pre><pre><code>                         origin/master</code>
 <code>                               ↓</code>
 <code>                           E---F</code>
 <code>(local)                   /</code>
@@ -491,8 +510,7 @@
 <ol>
 <li><code>stash</code> any uncommitted changes (if any)</li>
 <li><code>fetch</code> the latest refs and commits from origin</li>
-<li><code>rebase -p</code> your changes (if any) onto origin&#39;s head</li>
-<li>else, just fast-forward your head to match origin&#39;s</li>
+<li><code>rebase -p</code> your changes (if any) onto origin&#39;s head<br/> else, just fast-forward your head to match origin&#39;s</li>
 <li>un-<code>stash</code> any previously stashed changes</li>
 </ol>
 <p><code>fetch</code> + <code>rebase</code> avoids unnecessary commits</p>
@@ -503,7 +521,7 @@
 		<h1>rebasing pull</h1>
 <p><br/>
 As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
-<pre><code>git pull --rebase</code></pre><p>This will do the <code>fetch</code> + <code>rebase</code> for you (you still stash on your own).</p>
+<pre><code>% git pull --rebase</code></pre><p>This will do the <code>fetch</code> + <code>rebase</code> for you (you still stash on your own).</p>
 
 	</div></section>
 	
@@ -566,7 +584,7 @@ As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
 	
 	<section class="slide " ><div>
 		<h1>reset (default)</h1>
-<pre><code>git reset [--mixed] &lt;SHA&gt;</code></pre><p><br/></p>
+<pre><code>% git reset [--mixed] &lt;SHA&gt;</code></pre><p><br/></p>
 <ol>
 <li>moves <code>HEAD</code> &amp; the current branch to the specified <code>&lt;SHA&gt;</code> </li>
 <li>clean the index, make it look like <code>&lt;SHA&gt;</code> </li>
@@ -574,19 +592,6 @@ As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
 </ol>
 <p><code>git reset HEAD</code> will unstage everything in the index</p>
 
-	</div></section>
-	
-	<section class="slide " ><div>
-		<h1>commit --amend</h1>
-<p>redo the last commit</p>
-<pre><code>                        A---B---C</code>
-<code>                                ↑    </code>
-<code>                          master &amp; HEAD</code></pre><pre><code>&lt;... change some files ... &gt; </code>
-<code>commit -a --amend --no-edit</code></pre><pre><code>                              C&#39; ← master &amp; HEAD</code>
-<code>                             /</code>
-<code>                        A---B---C</code>
-<code>                                ↑    </code>
-<code>                  (dangling but still in reflog)</code></pre>
 	</div></section>
 	
 	<section class="slide " ><div>
@@ -602,7 +607,7 @@ As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
 <code>                             /</code>
 <code>                A---B---C---D </code>
 <code>                            ↑ </code>
-<code>                     master &amp; HEAD</code></pre><pre><code>git merge --squash feature</code></pre><pre><code>                              E---F---G ← feature</code>
+<code>                     master &amp; HEAD</code></pre><pre><code>% git merge --squash feature</code></pre><pre><code>                              E---F---G ← feature</code>
 <code>                             /</code>
 <code>                A---B---C---D---G&#39; </code>
 <code>                                ↑ </code>
@@ -615,8 +620,8 @@ As of git 1.8.5, git has finally added a rebase switch to <code>pull</code>:</p>
 <p>Oops, I really wanted <code>C</code>!</p>
 <pre><code>                              C&#39; ← master &amp; HEAD</code>
 <code>                             /</code>
-<code>                        A---B---C ← (dangling)</code></pre><pre><code>git reflog  # find SHA_OF_C </code>
-<code>git reset --hard SHA_OF_C</code></pre><pre><code>                              C&#39; ← (dangling)</code>
+<code>                        A---B---C ← (dangling)</code></pre><pre><code>% git reflog master  # find SHA_OF_C </code>
+<code>% git reset --hard SHA_OF_C</code></pre><pre><code>                              C&#39; ← (dangling)</code>
 <code>                             /</code>
 <code>                        A---B---C</code>
 <code>                                ↑    </code>

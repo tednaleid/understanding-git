@@ -45,9 +45,9 @@ by <a href="https://twitter.com/tednaleid">@tednaleid</a>
 point at 0..N parent commits 
 
 ```
-                              E---F---G 
-                             /
-                        A---B---C---D 
+                          E---F---G
+                         /         \
+                    A---B---C---D---H---I
 ```
 
 most commonly 1 or 2 parent commits
@@ -64,7 +64,7 @@ fixed commit pointers
 ```
 
 ```
-    % git commit -m "adding stuff to C"
+% git commit -m "adding stuff to C"
 ```
 
 ```
@@ -79,7 +79,7 @@ fixed commit pointers
 floating commit pointer
 
 ```
-                          A---B
+                      A---B---C
                               ↑
                             master
 ```
@@ -89,7 +89,7 @@ floating commit pointer
 ```
 
 ```
-                          A---B---C
+                      A---B---C---D
                                   ↑
                                 master
 ```
@@ -323,182 +323,81 @@ you have _weeks_ to retrieve prior commits if something doesn't work
 # You need (at least) one repo visualization tool that you grok
 
 
-!SLIDE 
+!SLIDE small-code
 
 # Here's Mine:
 
 ```
 ~/.gitconfig:
 [alias]
-  l = git log --graph --pretty='%h -%d %s [%an] (%cr)'
+l = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%an]%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+la = !git l --all
 ```
 ```
-git l
+git la
 ```
 
-```
-*   245ab64 - Merge pull request #32 from michaelcamer…
-|\
-| * 54f1379 - Fix the implementation on soft setting the…
-|/
-* f88cc8d - prepare for release [Ted Naleid] (3 weeks ago)
-*   9fa65f8 - Merge branch 'michaelcameron-warn-on-bad-p…
-|\
-| * c55baa7 - (michaelcameron-warn-on-bad-pool-config) W…
-* | ed2c18f - prep for release [Ted Naleid] (3 weeks ago)
-|/
-* 1d87244 - updated release note for 1.5.1 [Ted Naleid] …
-```
+<img src="images/terminal.png" alt="" height="400px">
 
 !SLIDE
 
 # There are others - Git Tower
 
-<img src="images/tower.png" alt="">
+<img src="images/tower.png" alt="" height="500px">
 
 !SLIDE
 
 # There are others - SourceTree
 
-<img src="images/sourcetree.png" alt="">
+<img src="images/sourcetree.png" alt="" height="500px">
 
 !SLIDE shout
 # Learn<br/>&#8220;the good parts&#8221; and make them your own
 
-!SLIDE quieter shout
+!SLIDE
+# checkout -
 
-# `reset` is for moving branch pointers
-
-!SLIDE 
-# reset --hard
+just like `cd -`, takes you to your previous branch
 ```
-git reset --hard <SHA>
+                        E---F  ← feature & HEAD
+                       /
+                  A---B---C---D 
+                              ↑ 
+                           master
 ```
-
-<br/>
-1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
-2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
-3. clean the working copy, make it look like <code>&lt;SHA&gt;</code> 
-
-<span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
-
-!SLIDE 
-# reset --hard HEAD 
 ```
-git reset --hard HEAD
+% git checkout -
 ```
-
-just means clean out the working directory and any staged information, don't move the branch pointer
-
-for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
-
-
-!SLIDE 
-# reset --soft 
-
 ```
-                    A---B---C---D---E
-                                    ↑
-                                  master
-```
-
-```
-git reset --soft SHA_OF_C
-```
-
-```
-                    working dir & index still look like
-                                    ↓
-                    A---B---C---D---E
-                            ↑
-                          master
-```
-1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code>
-2. index - unchanged 
-3. working directory - unchanged 
-
-
-!SLIDE 
-# reset --soft 
-
-useful for squashing the last few messy commits into one pristine commit
-```
-                    working dir & index still look like
-                                    ↓
-                    A---B---C---D---E
-                            ↑
-                          master
-```
-
-```
-git commit -m "perfect code on the 'first' try"
-```
-
-```
-                    A---B---C---E'
-                                ↑
-                              master
-```
-
-!SLIDE 
-# reset --soft 
-
-What if you've got a more complicated situation:
-
-```
-                              master
-                                ↓
-                A---B---C---D---E 
-                 \       \
-                  F---G---H---I ← feature & HEAD
-```
-
-Can't `reset` our way out of this, right?
-
-!SLIDE 
-# reset --soft 
-
-Just do one last merge
-
-```
-git merge master
-```
-
-```
-                              master
-                                ↓
-                A---B---C---D---E 
-                 \       \       \
-                  F---G---H---I---J ← feature & HEAD
-```
-
-!SLIDE 
-# reset --soft 
-
-and then we can `reset` into a single commit 
-
-```
-git reset --soft master
-```
-
-```
-                A---B---C---D---E ← feature & HEAD & master
-                                 \
-                                  J ← working dir & index 
-```
-
-```
-git commit -m "pristine J"
-```
-
-```
-                              master
-                                ↓
-                A---B---C---D---E---J' ← feature & HEAD 
+                        E---F  ← feature 
+                       /
+                  A---B---C---D 
+                              ↑ 
+                       master & HEAD
 ```
 
 
+!SLIDE
+# commit --amend
 
+redo the last commit
+```
+                        A---B---C
+                                ↑    
+                          master & HEAD
+```
+
+```
+<... change some files ... > 
+% git commit -a --amend --no-edit
+```
+```
+                              C' ← master & HEAD
+                             /
+                        A---B---C
+                                ↑    
+                  (dangling but still in reflog)
+```
 
 
 !SLIDE 
@@ -521,7 +420,7 @@ then moves the current branch pointer
 ```
 
 ```
-   git rebase master
+% git rebase master
 ```
 
 ```
@@ -538,7 +437,7 @@ then moves the current branch pointer
 # rebasing 
 
 ```
-git rebase --abort
+% git rebase --abort
 ```
 
 If you get in trouble `--abort` and try again.  
@@ -570,7 +469,7 @@ apply a subset of changes from another branch
 ```
 
 ```
-git cherry-pick SHA_OF_F
+% git cherry-pick SHA_OF_F
 ```
 
 ```
@@ -580,6 +479,139 @@ git cherry-pick SHA_OF_F
                                       ↑ 
                                  master & HEAD
 ```
+
+
+!SLIDE quieter shout
+
+# `reset` is for moving branch pointers
+
+
+!SLIDE 
+# reset --soft 
+
+```
+                    A---B---C---D---E
+                                    ↑
+                                  master
+```
+
+```
+% git reset --soft SHA_OF_C
+```
+
+```
+                    working dir & index still look like
+                                    ↓
+                    A---B---C---D---E
+                            ↑
+                          master
+```
+1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code>
+2. index - unchanged 
+3. working directory - unchanged 
+
+
+!SLIDE 
+# reset --soft 
+
+useful for squashing the last few messy commits into one pristine commit
+```
+                    working dir & index still look like
+                                    ↓
+                    A---B---C---D---E
+                            ↑
+                          master
+```
+
+```
+% git commit -m "perfect code on the 'first' try"
+```
+
+```
+                    A---B---C---E'
+                                ↑
+                              master
+```
+
+!SLIDE 
+# reset --soft 
+
+What if you've got a more complicated situation:
+
+```
+                              master
+                                ↓
+                A---B---C---D---E 
+                 \       \
+                  F---G---H---I ← feature & HEAD
+```
+
+Can't `reset` our way out of this, right?
+
+!SLIDE 
+# reset --soft 
+
+Just do one last merge
+
+```
+% git merge master
+```
+
+```
+                              master
+                                ↓
+                A---B---C---D---E 
+                 \       \       \
+                  F---G---H---I---J ← feature & HEAD
+```
+
+!SLIDE 
+# reset --soft 
+
+and then we can `reset` into a single commit 
+
+```
+% git reset --soft master
+```
+
+```
+                A---B---C---D---E ← feature & HEAD & master
+                                 \
+                                  J ← working dir & index 
+```
+
+```
+% git commit -m "pristine J"
+```
+
+```
+                              master
+                                ↓
+                A---B---C---D---E---J' ← feature & HEAD 
+```
+
+!SLIDE 
+# reset --hard
+```
+% git reset --hard <SHA>
+```
+
+<br/>
+1. moves <code>HEAD</code> & the current branch to the specified <code>&lt;SHA&gt;</code> 
+2. clean the index, make it look like <code>&lt;SHA&gt;</code> 
+3. clean the working copy, make it look like <code>&lt;SHA&gt;</code> 
+
+<span class="danger">dangerous</span> if you have <span class="danger">uncommitted work</span>, useful for undoing bad commits
+
+!SLIDE 
+# reset --hard HEAD 
+```
+% git reset --hard HEAD
+```
+
+just means clean out the working directory and any staged information, don't move the branch pointer
+
+for more info on <code>reset</code>, see: <a href="http://progit.org/2011/07/11/reset.html">http://progit.org/2011/07/11/reset.html</a>
 
 
 !SLIDE 
@@ -594,15 +626,16 @@ does not move any local branches
 # fetch 
 
 ```
-                     A---B---E---F   
-(origin)                         ↑ 
-                              master (in remote repo)  
-```
-```
                    origin/master
 (local)                  ↓
                      A---B---C---D ← master & HEAD 
 ```
+```
+                     A---B---E---F   
+(origin)                         ↑ 
+                              master (in remote repo)  
+```
+
 
 ```
 % git fetch
@@ -657,9 +690,8 @@ does not move any local branches
 
 1. <code>stash</code> any uncommitted changes (if any)
 2. <code>fetch</code> the latest refs and commits from origin
-3. <code>rebase -p</code> your changes (if any) onto origin's head
-4. else, just fast-forward your head to match origin's
-5. un-<code>stash</code> any previously stashed changes
+3. <code>rebase -p</code> your changes (if any) onto origin's head<br/> else, just fast-forward your head to match origin's
+4. un-<code>stash</code> any previously stashed changes
 
 <code>fetch</code> + <code>rebase</code> avoids unnecessary commits
 
@@ -670,7 +702,7 @@ does not move any local branches
 As of git 1.8.5, git has finally added a rebase switch to `pull`:
 
 ```
-git pull --rebase
+% git pull --rebase
 ```
 
 This will do the `fetch` + `rebase` for you (you still stash on your own).
@@ -718,7 +750,7 @@ This will do the `fetch` + `rebase` for you (you still stash on your own).
 # reset (default)
 
 ```
-git reset [--mixed] <SHA>
+% git reset [--mixed] <SHA>
 ```
 
 <br/>
@@ -729,27 +761,6 @@ git reset [--mixed] <SHA>
 
 <code>git reset HEAD</code> will unstage everything in the index
 
-!SLIDE
-# commit --amend
-
-redo the last commit
-```
-                        A---B---C
-                                ↑    
-                          master & HEAD
-```
-
-```
-<... change some files ... > 
-commit -a --amend --no-edit
-```
-```
-                              C' ← master & HEAD
-                             /
-                        A---B---C
-                                ↑    
-                  (dangling but still in reflog)
-```
 
 !SLIDE 
 <br/>
@@ -769,7 +780,7 @@ compresses N commits into one commit that's appended to a destination branch
 ```
 
 ```
-git merge --squash feature
+% git merge --squash feature
 ```
 
 ```
@@ -794,8 +805,8 @@ Oops, I really wanted <code>C</code>!
                         A---B---C ← (dangling)
 ```
 ```
-git reflog  # find SHA_OF_C 
-git reset --hard SHA_OF_C
+% git reflog master  # find SHA_OF_C 
+% git reset --hard SHA_OF_C
 ```
 ```
                               C' ← (dangling)
